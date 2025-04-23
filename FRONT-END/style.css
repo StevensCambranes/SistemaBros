@@ -1,0 +1,10 @@
+html {
+    background-color: #060606;
+    color: #FFFFFF;
+}
+
+.logo{
+    width: 100px;
+    height: 100px;
+    align-items: center;
+}
