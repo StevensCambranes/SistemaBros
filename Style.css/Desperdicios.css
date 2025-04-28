@@ -1,0 +1,80 @@
+/* RESET + 100% HEIGHT */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* HEADER full-width */
+header {
+  width: 100%;
+  background: #000;
+  padding: 12px 0;
+  text-align: center;
+}
+header h1 {
+  color: #fff;
+  font-size: 1.8rem;
+}
+
+/* MAIN ocupa resto de pantalla */
+.desperdicios-main {
+  flex: 1;
+  background: linear-gradient(to bottom, #f2f2f2, #999);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* TABLA centrada */
+table {
+  width: 90%;
+  max-width: 800px;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+thead th {
+  text-align: left;
+  padding: 10px;
+  font-weight: bold;
+}
+tbody td {
+  padding: 10px;
+  font-size: 1rem;
+}
+/* Líneas separadoras */
+tbody tr + tr td {
+  border-top: 1px solid #666;
+}
+
+/* BOTÓN inferior */
+.buttons {
+  margin-bottom: 20px;
+}
+.btn {
+  width: 160px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: transform .1s ease;
+}
+.btn-orange {
+  background: #bf6e00;
+}
+.btn-orange:active {
+  transform: scale(0.97);
+}
