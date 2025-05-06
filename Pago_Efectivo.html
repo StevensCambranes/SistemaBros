@@ -1,0 +1,49 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pantalla de Pago</title>
+  <link rel="stylesheet" href="Style.css/Pago_Efectivo.css">
+</head>
+<body>
+  <div class="payment-screen">
+    <!-- Título del método de pago -->
+    <h1 class="payment-title">Efectivo</h1>
+
+    <!-- Selección de método -->
+    <div class="payment-methods">
+      <div class="method selected">
+        <img src="Imagenes/money.svg" alt="Efectivo">
+      </div>
+      <div class="method">
+        <img src="Imagenes/credit-card.svg" alt="Tarjeta">
+      </div>
+      <div class="method">
+        <img src="Imagenes/transferencia-movil.png" alt="Transferencia">
+      </div>
+    </div>
+
+    <!-- Total -->
+    <div class="total">
+      <span>Total: <strong>Q 164.00</strong></span>
+    </div>
+
+    <!-- Input de pago y botón calcular -->
+    <div class="payment-input">
+      <label for="payment">Paga con</label>
+      <input type="number" id="payment" value="200.00" step="1">
+      <button class="btn calculate">Calcular</button>
+    </div>
+
+    <!-- Cambio -->
+    <div class="change">
+      <span>Cambio: <strong>Q 36.00</strong></span>
+    </div>
+
+    <!-- Botones finales -->
+    <button class="btn print">Imprimir Comanda</button>
+    <a href="#" class="menu">Menu Principal</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pantalla de Pedido</title>
+  <link rel="stylesheet" href="Style.css/Pedidos.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- PANEL IZQUIERDO -->
+    <aside class="sidebar sidebar--left">
+      <!-- Spinner Cantidad -->
+      <div class="spinner">
+        <label for="qty-input">Cantidad</label>
+        <div class="spinner-control vertical">
+          <button class="arrow" id="qty-up">▲</button>
+          <input type="number"
+                 id="qty-input"
+                 value="1"
+                 min="1"
+                 step="1"
+          />
+          <button class="arrow" id="qty-down">▼</button>
+        </div>
+      </div>
+      <!-- Spinner Mesa -->
+      <div class="spinner">
+        <label for="table-input">Mesa</label>
+        <div class="spinner-control vertical">
+          <button class="arrow" id="table-up">▲</button>
+          <input type="number"
+                 id="table-input"
+                 value="1"
+                 min="1"
+                 step="1"
+          />
+          <button class="arrow" id="table-down">▼</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- PANEL CENTRAL -->
+    <main class="panel-main">
+      <section class="group">
+        <h2>Entradas</h2>
+        <div class="group-controls">
+          <button class="arrow" id="entradas-left">◀</button>
+          <button class="item" id="entrada-item-1">Chilaquiles</button>
+          <button class="item" id="entrada-item-2">Los Nachos</button>
+          <button class="arrow" id="entradas-right">▶</button>
+        </div>
+      </section>
+
+      <section class="group">
+        <h2>Comida</h2>
+        <div class="group-controls">
+          <button class="arrow" id="comida-left">◀</button>
+          <button class="item" id="comida-item-1">Tacos</button>
+          <button class="item" id="comida-item-2">Burrito</button>
+          <button class="arrow" id="comida-right">▶</button>
+        </div>
+      </section>
+
+      <section class="group">
+        <h2>Bebidas</h2>
+        <div class="group-controls">
+          <button class="arrow" id="bebidas-left">◀</button>
+          <button class="item" id="bebida-item-1">Bebida alcohólica</button>
+          <button class="item" id="bebida-item-2">Gaseosas</button>
+          <button class="arrow" id="bebidas-right">▶</button>
+        </div>
+      </section>
+
+      <div class="footer">
+        <a href="#" class="link-main">Menú Principal</a>
+      </div>
+    </main>
+
+    <!-- PANEL DERECHO -->
+    <aside class="sidebar sidebar--right">
+      <div class="resumen">
+        <h3>Resumen</h3>
+        <p><strong>Mesa:</strong> #<span id="res-table">1</span></p>
+        <p><strong>Orden:</strong></p>
+        <p><strong>Total:</strong></p>
+      </div>
+      <button class="btn btn--green">Cobrar</button>
+      <button class="btn btn--orange">Cancelar</button>
+    </aside>
+  </div>
+
+  <script>
+    // —— SPINNERS de Cantidad y Mesa ——
+    function wireSpinner(upId, downId, inputId, max = 9999) {
+      const upBtn   = document.getElementById(upId);
+      const downBtn = document.getElementById(downId);
+      const inp     = document.getElementById(inputId);
+
+      // Flechas sube/baja
+      upBtn.addEventListener('click', () => {
+        let v = parseInt(inp.value) || 0;
+        if (v < max) inp.value = v + 1;
+      });
+      downBtn.addEventListener('click', () => {
+        let v = parseInt(inp.value) || 0;
+        if (v > parseInt(inp.min || 1)) inp.value = v - 1;
+      });
+
+      // Validación sólo al terminar de tipear
+      inp.addEventListener('change', () => {
+        let v = parseInt(inp.value, 10);
+        if (isNaN(v) || v < parseInt(inp.min || 1)) v = parseInt(inp.min || 1);
+        if (v > max) v = max;
+        inp.value = v;
+
+        // Si es el spinner de Mesa, actualizamos el resumen
+        if (inputId === 'table-input') {
+          document.getElementById('res-table').innerText = v;
+        }
+      });
+    }
+
+    // Aplica a Cantidad y Mesa
+    wireSpinner('qty-up', 'qty-down', 'qty-input', 1000);
+    wireSpinner('table-up', 'table-down', 'table-input', 100);
+
+    // —— CARUSELES Entradas/Comida/Bebidas ——
+    function setupCarousel(leftId, rightId, item1Id, item2Id, items) {
+      let idx = 0;
+      const btnA = document.getElementById(item1Id);
+      const btnB = document.getElementById(item2Id);
+
+      function render() {
+        btnA.innerText = items[idx]     || '';
+        btnB.innerText = items[idx + 1] || '';
+      }
+      document.getElementById(leftId).addEventListener('click', () => {
+        if (idx > 0) idx--;
+        render();
+      });
+      document.getElementById(rightId).addEventListener('click', () => {
+        if (idx < items.length - 2) idx++;
+        render();
+      });
+      render();
+    }
+
+    setupCarousel(
+      'entradas-left','entradas-right',
+      'entrada-item-1','entrada-item-2',
+      ['Chilaquiles','Los Nachos','Guacamole','Quesadillas','Sopa Azteca']
+    );
+    setupCarousel(
+      'comida-left','comida-right',
+      'comida-item-1','comida-item-2',
+      ['Tacos','Burrito','Enchiladas','Fajitas','Tostadas']
+    );
+    setupCarousel(
+      'bebidas-left','bebidas-right',
+      'bebida-item-1','bebida-item-2',
+      ['Cerveza','Vino','Refresco','Agua','Cóctel']
+    );
+  </script>
+</body>
+</html>

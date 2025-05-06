@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pantalla de Pago Con Tarjeta</title>
+  <link rel="stylesheet" href="Style.css/Pago_Tarjeta.css">
+</head>
+<body>
+  <div class="payment-screen">
+    <!-- Título del método de pago -->
+    <h1 class="payment-title">Tarjeta</h1>
+
+    <!-- Selección de método -->
+    <div class="payment-methods">
+      <div class="method">
+        <img src="Imagenes/money.svg" alt="Efectivo">
+      </div>
+      <div class="method selected">
+        <img src="Imagenes/credit-card.svg" alt="Tarjeta">
+        <span class="arrow-down"></span>
+      </div>
+      <div class="method">
+        <img src="Imagenes/transferencia-movil.png" alt="Transferencia">
+      </div>
+    </div>
+
+    <!-- Formulario de datos -->
+    <form class="info-form" onsubmit="return false;">
+      <div class="field">
+        <label for="order-name">Nombre de Orden</label>
+        <input id="order-name" class="value-field" type="text">
+      </div>
+
+      <div class="field">
+        <label for="payment">Paga con</label>
+        <input id="payment" class="value-field" type="text" value="Q 164.00" readonly>
+      </div>
+    </form>
+
+    <!-- Total -->
+    <div class="total">Total: <strong>Q 164.00</strong></div>
+
+    <!-- Botones finales -->
+    <button class="btn print">Imprimir Comanda</button>
+    <a href="#" class="menu">Menu Principal</a>
+  </div>
+</body>
+</html>
