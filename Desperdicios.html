@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0"/>
+  <title>Cálculo de desperdicios</title>
+  <link rel="stylesheet" href="Style.css/Desperdicios.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Cálculo de desperdicios</h1>
+  </header>
+
+  <main class="desperdicios-main">
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Pérdida Total</th>
+          <th>Fecha de caducidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Carne de Birria</td>
+          <td>Q 1,000.00</td>
+          <td>05-02-2025</td>
+        </tr>
+        <tr>
+          <td>Carne de Cochito</td>
+          <td>Q 1,000.00</td>
+          <td>05-02-2025</td>
+        </tr>
+        <tr>
+          <td>Queso</td>
+          <td>Q 500.00</td>
+          <td>10-03-2025</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="buttons">
+      <button class="btn btn-orange" id="btnInventario">
+        Inventario
+      </button>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('btnInventario')
+      .addEventListener('click', () => {
+        window.location.href = 'vista-inventario.html';
+      });
+  </script>
+</body>
+</html>

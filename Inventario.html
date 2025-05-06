@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0"/>
+  <title>Agregar a Inventario</title>
+  <!-- Solo aquí cargas este CSS -->
+  <link rel="stylesheet" href="Style.css/Inventario.css" />
+</head>
+<body>
+
+  <div class="inventario-container">
+    <h1>Agregar a Inventario</h1>
+
+    <form>
+      <div class="fields">
+        <!-- Columna izquierda -->
+        <div class="column">
+          <label for="producto">Ingresar Producto</label>
+          <input type="text" id="producto" name="producto" />
+
+          <label for="cantidad">Cantidad Producto</label>
+          <input type="number" id="cantidad" name="cantidad" />
+
+          <label for="precio">Precio X Unidad</label>
+          <input type="text" id="precio" name="precio" placeholder="Q" />
+        </div>
+
+        <!-- Columna derecha -->
+        <div class="column">
+          <label for="fecha">Fecha Ingreso</label>
+          <input type="date" id="fecha" name="fecha" />
+
+          <label for="medida">Medida</label>
+          <select id="medida" name="medida">
+            <option value="unidad">Unidad</option>
+            <option value="kg">Kilogramo</option>
+            <option value="litro">Litro</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit" class="btn btn-green">
+          Agregar Producto
+        </button>
+        <button type="button" class="btn btn-blue">
+          Ver Inventario
+        </button>
+      </div>
+    </form>
+
+    <a href="Menu_Principal.html" class="menu-link">Menu Principal</a>
+  </div>
+  
+
+</body>
+</html>

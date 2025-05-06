@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pedidos – Modal over Black</title>
+  <link rel="stylesheet" href="Style.css/Eleccion.css">
+</head>
+<body>
+  <div class="app">
+    <!-- PANEL CENTRAL -->
+    <main class="panel-main">
+      <!-- Ventana modal centrada -->
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Tacos</h2>
+          <button class="modal-close">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="section tacos">
+            <button class="btn taco birria">Birria</button>
+            <button class="btn taco cochito">Cochito</button>
+            <button class="btn taco mixta">Mixta</button>
+            <button class="btn taco temporada">De Temporada</button>
+          </div>
+          <div class="section toppings">
+            <h3>Topings</h3>
+            <button class="btn topping cebolla">Cebolla</button>
+            <button class="btn topping repollo">Repollo</button>
+            <button class="btn topping queso">Queso</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- PANEL DERECHO -->
+    <aside class="sidebar sidebar--right">
+      <div class="resumen">
+        <h3>Resumen</h3>
+        <p><strong>Mesa:</strong> #1</p>
+        <p><strong>Orden:</strong></p>
+        <ul class="orden-list">
+          <li><span class="remove">×</span>1 Burrito (Mixto) = 40</li>
+          <li><span class="remove">×</span>5 Tacos (Birria) = 60</li>
+          <li><span class="remove">×</span>2 Refrescos = 14</li>
+          <li><span class="remove">×</span>2 Cantaritos = 50</li>
+        </ul>
+        <p class="total">Total<br>Q164.00</p>
+      </div>
+      <button class="btn btn--green">Cobrar</button>
+      <button class="btn btn--orange">Cancelar</button>
+    </aside>
+  </div>
+</body>
+</html>
