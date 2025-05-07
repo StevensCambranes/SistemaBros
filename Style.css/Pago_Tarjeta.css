@@ -1,0 +1,136 @@
+:root {
+    --bg-dark: #000;
+    --purple: #4d005d;
+    --gold: #fcc300;
+    --green: #00a000;
+    --font: 'Arial', sans-serif;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background: var(--bg-dark);
+    color: #fff;
+    font-family: var(--font);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .payment-screen {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .payment-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  /* ===== Métodos de pago ===== */
+  .payment-methods {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .method {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background: var(--purple);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .method img {
+    max-width: 60%;
+    max-height: 60%;
+  }
+  
+  /* Flecha bajo el método seleccionado */
+  .method.selected .arrow-down {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 12px solid var(--purple);
+  }
+  
+  /* ===== Formulario de datos ===== */
+  .info-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;            /* <--- separación aumentada */
+    margin-bottom: 35px;  /* <--- margen inferior mayor */
+    width: 100%;
+  }
+  
+  .field {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .field label {
+    color: var(--gold);
+    font-weight: bold;
+    margin-bottom: 6px;   /* <--- espacio extra bajo la etiqueta */
+  }
+  
+  .value-field {
+    width: 260px;          /* <--- más ancho */
+    padding: 12px 0;       /* <--- más alto */
+    font-size: 1.1rem;     /* <--- texto más grande */
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid var(--gold);      /* <--- borde dorado */
+    border-radius: 6px;
+    background: linear-gradient(
+      to bottom,
+      #fafafa 0%,
+      #d6d6d6 40%,
+      #fafafa 100%
+    );                                       /* <--- gradiente marcado */
+    box-shadow: purple;  /* <--- sombra suave dorada */
+    color: #000;
+  }
+  
+  /* ===== Total y botones ===== */
+  .total {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+  }
+  
+  .btn.print {
+    background: var(--green);
+    border: none;
+    color: #fff;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .menu {
+    display: block;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  

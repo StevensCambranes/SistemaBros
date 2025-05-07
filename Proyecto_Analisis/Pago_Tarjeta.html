@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pantalla de Pago con Tarjeta</title>
+  <link rel="stylesheet" href="Style.css/Pago_Tarjeta.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="payment-screen">
+    <h1 class="payment-title">Pago con tarjeta</h1>
+
+    <!-- Métodos -->
+    <div class="payment-methods">
+      <a class="payment-method" href="Pago_Efectivo.html">
+        <img src="Imagenes/money.svg" alt="Efectivo">
+        <p>Efectivo</p>
+      </a>
+      <a class="payment-method selected" href="Pago_Tarjeta.html">
+        <img src="Imagenes/credit-card.svg" alt="Tarjeta">
+        <p>Tarjeta</p>
+      </a>
+      <a class="payment-method" href="Pago_Transferencia.html">
+        <img src="Imagenes/transferencia-movil.png" alt="Pago Móvil">
+        <p>Transferencia</p>
+      </a>
+    </div>
+
+    <!-- Formulario personalizado -->
+    <div class="payment-input">
+      <label for="order-name">Nombre de Orden</label>
+      <input type="text" id="order-name" placeholder="Cliente..." />
+    </div>
+
+    <div class="payment-input">
+      <label for="payment">Paga con</label>
+      <input type="text" id="payment" readonly value="Q 0.00" />
+    </div>
+
+    <!-- Total dinámico -->
+    <div class="total">
+      <span>Total: <strong id="total-amount">Q 0.00</strong></span>
+    </div>
+
+    <!-- Botones finales -->
+    <button class="btn print" onclick="window.print()">Imprimir Comanda</button>
+    <button class="btn cancel" onclick="cancelarTransaccion()">Cancelar Transacción</button>
+  </div>
+
+  <script>
+    // Mostrar total y reflejar en campo de pago
+    document.addEventListener('DOMContentLoaded', () => {
+      const total = localStorage.getItem('totalPagar');
+      if (total) {
+        const totalFormatted = `Q ${parseFloat(total).toFixed(2)}`;
+        document.getElementById('total-amount').innerText = totalFormatted;
+        document.getElementById('payment').value = totalFormatted;
+      }
+    });
+
+    // Cancelar
+    function cancelarTransaccion() {
+      Swal.fire({
+        title: '¿Está seguro de cancelar la transacción?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Transacción cancelada con éxito',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          }).then(() => {
+            window.location.href = 'Pedidos.html';
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

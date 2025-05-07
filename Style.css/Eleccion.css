@@ -1,0 +1,163 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+  html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* LAYOUT DE 2 COLUMNAS */
+  .app {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    height: 100%;
+  }
+  
+  /* PANEL CENTRAL (FONDO NEGRO) */
+  .panel-main {
+    position: relative;
+    background: #000;
+  }
+  
+  /* ===== VENTANA MODAL ===== */
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 320px;
+    transform: translate(-50%, -50%);
+    background: #f2f2f2;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  
+  .modal-header {
+    position: relative;
+    text-align: center;
+    padding: 12px 0;
+  }
+  .modal-header h2 {
+    font-size: 1.4rem;
+    color: #000;
+  }
+  .modal-close {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 24px; height: 24px;
+    border: none;
+    border-radius: 50%;
+    background: #e74c3c;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .modal-body {
+    padding: 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .toppings h3 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #000;
+  }
+  
+  /* BOTONES */
+  .btn {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 120px;
+    text-align: center;
+    color: #fff;
+  }
+  /* Colores tacos */
+  .taco.birria    { background: #5a0000; }
+  .taco.cochito   { background: #aa6e00; }
+  .taco.mixta     { background: #4b0000; }
+  .taco.temporada { background: #005f9e; }
+  /* Colores toppings */
+  .topping.cebolla  { background: #d6b37c; color: #000; }
+  .topping.repollo  { background: #5a006f; }
+  .topping.queso    { background: #a6c400; color: #000; }
+  
+  /* PANEL DERECHO (RESUMEN) */
+  .sidebar--right {
+    background: linear-gradient(to bottom, #eee, #ccc);
+    padding: 30px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .resumen {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .resumen h3 {
+    font-size: 1.2rem;
+    color: #000;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .resumen p {
+    font-size: 1rem;
+    color: #000;
+    margin-bottom: 8px;
+  }
+  .orden-list {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+    width: 100%;
+  }
+  .orden-list li {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    color: #000;
+  }
+  .orden-list .remove {
+    display: inline-block;
+    width: 18px; height: 18px;
+    background: #e74c3c;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    margin-right: 8px;
+    font-size: 0.9rem;
+  }
+  .total {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    margin: 12px 0;
+  }
+  
+  /* BOTONES COBRAR / CANCELAR */
+  .btn--green {
+    background: #28a745;
+    margin-bottom: 12px;
+  }
+  .btn--orange {
+    background: #d35400;
+  }
+  

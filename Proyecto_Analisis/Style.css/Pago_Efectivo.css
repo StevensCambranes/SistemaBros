@@ -1,0 +1,162 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.payment-screen {
+  width: 450px;
+  text-align: center;
+}
+
+.payment-title {
+  font-size: 2.8rem;
+  margin-bottom: 2.5rem;
+}
+
+/* contenedor de métodos */
+.payment-methods {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+/* botón individual */
+.payment-method {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 150px;
+  background: #800080;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+}
+
+/* efecto hover */
+.payment-method:hover {
+  transform: scale(1.2);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.4);
+}
+
+/* ícono dentro del botón */
+.payment-method img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+/* texto dentro del botón */
+.payment-method p {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* flechita del método seleccionado */
+.payment-method.selected::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid #800080;
+}
+
+/* Total */
+.total {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.total strong {
+  font-weight: 600;
+}
+
+/* Pago */
+.payment-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.payment-input label {
+  color: #FFC107;
+  font-weight: 800;
+}
+.payment-input input {
+  width: 100px;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: linear-gradient(#eee, #ccc);
+  text-align: right;
+  font-size: 1rem;
+}
+
+/* Botones */
+.btn {
+  padding: 1.2rem 1.5rem;
+  border: none;
+  border-radius: 16px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btn.calculate {
+  background: #28a745;
+  color: #fff;
+}
+.btn.print {
+  background: #28a745;
+  color: #fff;
+  width: 100%;
+  margin: 1rem 0;
+}
+.menu {
+  display: inline-block;
+  color: #FFC107;
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+/* Cambio */
+.change {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.change strong {
+  font-weight: 700;
+}
+
+.btn.cancel {
+  background: #dc3545;
+  color: white;
+  width: 100%;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+.btn.cancel:hover {
+  background: #c82333;
+}

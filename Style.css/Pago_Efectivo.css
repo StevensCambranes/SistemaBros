@@ -1,0 +1,125 @@
+/* styles.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.payment-screen {
+  width: 360px;
+  text-align: center;
+}
+.payment-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Métodos de pago */
+.payment-methods {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 5rem;
+  position: relative;
+}
+.method {
+  width: 160px;
+  height: 100px;
+  background: purple; 
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.method img {
+  width: 48px;
+  height: 48px;
+}
+.method span {
+  color: #fff;
+  font-size: 0.9rem;
+}
+.method.selected::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #4b0073;
+}
+
+/* Total */
+.total {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.total strong {
+  font-weight: 600;
+}
+
+/* Pago y calcular */
+.payment-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.payment-input label {
+  color: #FFC107; /* amarillo */
+  font-weight: 600;
+}
+.payment-input input {
+  width: 100px;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: linear-gradient(#eee, #ccc);
+  text-align: right;
+  font-size: 1rem;
+}
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.btn.calculate {
+  background: #28a745;
+  color: #fff;
+}
+.btn.print {
+  background: #28a745;
+  color: #fff;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+/* Cambio */
+.change {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.change strong {
+  font-weight: 700;
+}
+
+/* Menú principal */
+.menu {
+  display: inline-block;
+  color: #FFC107;
+  text-decoration: none;
+  font-size: 0.9rem;
+}

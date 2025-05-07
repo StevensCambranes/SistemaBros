@@ -1,0 +1,105 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  width: 340px;
+  text-align: center;
+}
+
+/* Título */
+h1 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+}
+
+/* Logo redondo */
+.logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 50px;
+}
+
+/* Cada bloque label+input */
+.field {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+/* Inputs con gradiente y sombra interna */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  font-size: 1rem;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, #f2f2f2, #ccc);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Ojo dentro del input */
+.password-container {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* Botón principal */
+.btn {
+  width: 100%;
+  height: 48px;
+  margin-top: 10px;
+  background: linear-gradient(to bottom, #f2f2f2, #ccc);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 1px rgba(255,255,255,0.6);
+}
+
+/* Link secundario */
+.login-link {
+  display: block;
+  margin-top: 22px;
+  font-size: 1rem;
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: bold;
+}

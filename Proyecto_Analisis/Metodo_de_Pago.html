@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Elige método de pago</title>
+  <link rel="stylesheet" href="Style.css/Metodo_de_pago.css">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+<h1>Seleccione un método de pago</h1>
+</head>
+<body>
+
+  <div class="methods">
+    <a class="method" href="Pago_Efectivo.html">
+      <img src="Imagenes/money.svg" alt="Efectivo">
+      <p>Efectivo</p>
+    </a>
+    <a class="method" href="Pago_Tarjeta.html">
+      <img src="Imagenes/credit-card.svg" alt="Tarjeta">
+      <p>Tarjeta</p>
+    </a>
+    <a class="method" href="Pago_Transferencia.html">
+      <img src="Imagenes/transferencia-movil.png" alt="Pago Móvil">
+      <p>Transferencia</p>
+    </a>
+  </div>
+
+  <div class="actions">
+    <button class="action-btn" id="back-btn">Regresar</button>
+  </div>
+
+  <!-- SweetAlert2 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  <script>
+    // Botón "Regresar"
+    document
+      .getElementById('back-btn')
+      .addEventListener('click', () => window.location.href = 'Pedidos.html');
+  </script>
+
+</body>
+</html>
