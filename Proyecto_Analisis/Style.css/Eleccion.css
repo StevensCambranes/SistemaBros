@@ -1,0 +1,185 @@
+/* RESET y Layout */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  height: 100vh; /* altura fija del viewport */
+}
+
+/* PANEL CENTRAL */
+.panel-main {
+  position: relative;
+  background: #000;
+}
+
+/* MODAL */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 16px;
+  transform: translate(-50%, -50%);
+  background: #f2f2f2;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+}
+.modal-header {
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+}
+.modal-header h2 {
+  font-size: 1.6rem;
+  color: #000;
+}
+.modal-close {
+  display: none; /* ocultar X */
+}
+.modal-body {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.toppings h3 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  color: #000;
+}
+
+/* BOTONES */
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  min-width: 140px;
+  text-align: center;
+  color: #fff;
+  transition: transform .1s;
+}
+.btn:hover { transform: scale(1.05); }
+
+/* Colores tacos */
+.taco.birria    { background: #5a0000; }
+.taco.cochito   { background: #aa6e00; }
+.taco.mixta     { background: #4b0000; }
+.taco.temporada { background: #005f9e; }
+/* Colores toppings */
+.topping.cebolla { background: #d6b37c; color: #000; }
+.topping.repollo { background: #5a006f; }
+.topping.queso   { background: #a6c400; color: #000; }
+
+/* PANEL DERECHO (RESUMEN) */
+.sidebar--right {
+  background: linear-gradient(to bottom, #eee, #ccc);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ← Alinea a la izquierda */
+}
+
+/* Resumen ancho completo */
+.resumen {
+  width: 100%;
+}
+
+/* Título más grande */
+.resumen h3 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+/* Campos Mesa y Orden */
+.field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  color: #000;
+}
+.field label {
+  margin-right: 8px;
+  white-space: nowrap;
+}
+.field input {
+  width: 60px;
+  padding: 6px 8px;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* FACTURA */
+.orden-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  width: 100%;
+}
+.orden-list li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  column-gap: 8px;
+  align-items: start;
+  margin-bottom: 8px;
+}
+.orden-list .remove {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  background: #e74c3c;
+  color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.orden-list .desc {
+  word-break: break-word;
+}
+
+/* TOTAL */
+.total {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* BOTONES COBRAR / CANCELAR */
+.btn--green,
+.btn--orange {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+.btn--green { background: #28a745; }
+.btn--orange { background: #d35400; }
+
+/* SweetAlert2 por encima */
+.swal2-container { z-index: 9999 !important; }

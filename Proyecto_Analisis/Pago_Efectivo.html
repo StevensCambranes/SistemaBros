@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pantalla de Pago</title>
+  <link rel="stylesheet" href="Style.css/Pago_Efectivo.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="payment-screen">
+    <h1 class="payment-title">Pago en efectivo</h1>
+
+    <!-- Métodos -->
+    <div class="payment-methods">
+      <a class="payment-method selected" href="Pago_Efectivo.html">
+        <img src="Imagenes/money.svg" alt="Efectivo">
+        <p>Efectivo</p>
+      </a>
+      <a class="payment-method" href="Pago_Tarjeta.html">
+        <img src="Imagenes/credit-card.svg" alt="Tarjeta">
+        <p>Tarjeta</p>
+      </a>
+      <a class="payment-method" href="Pago_Transferencia.html">
+        <img src="Imagenes/transferencia-movil.png" alt="Pago Móvil">
+        <p>Transferencia</p>
+      </a>
+    </div>
+
+    <!-- Total dinámico -->
+    <div class="total">
+      <span>Total: <strong id="total-amount">Q 0.00</strong></span>
+    </div>
+
+    <!-- Pago y cálculo -->
+    <div class="payment-input">
+      <label for="payment">Paga con</label>
+      <input type="number" id="payment" placeholder="0.00" step="1">
+      <button class="btn calculate" onclick="calcularCambio()">Calcular</button>
+    </div>
+
+    <!-- Cambio -->
+    <div class="change">
+      <span>Cambio: <strong id="change-amount">Q 0.00</strong></span>
+    </div>
+
+    <button class="btn print" onclick="window.print()">Imprimir Comanda</button>
+    <button class="btn cancel" onclick="cancelarTransaccion()">Cancelar Transacción</button>
+  </div>
+
+  <script>
+    // Obtener total de localStorage al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+      const total = localStorage.getItem('totalPagar');
+      if (total) {
+        document.getElementById('total-amount').innerText = `Q ${parseFloat(total).toFixed(2)}`;
+      }
+    });
+
+    // Calcular cambio
+    function calcularCambio() {
+      const totalTexto = document.getElementById("total-amount").innerText;
+      const pago = parseFloat(document.getElementById("payment").value);
+      const total = parseFloat(totalTexto.replace("Q", "").trim());
+      const cambio = pago - total;
+
+      document.getElementById("change-amount").innerText = isNaN(cambio) || cambio < 0
+        ? "Q 0.00"
+        : `Q ${cambio.toFixed(2)}`;
+    }
+
+    // Cancelar transacción
+    function cancelarTransaccion() {
+      Swal.fire({
+        title: '¿Está seguro de cancelar la transacción?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Transacción cancelada con éxito',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          }).then(() => {
+            window.location.href = 'Pedidos.html';
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

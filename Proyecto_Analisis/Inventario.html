@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agregar a Inventario</title>
+  <link rel="stylesheet" href="Style.css/Inventario.css" />
+  <!-- Importar SweetAlert2 desde CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+  <div class="inventario-container">
+    <h1>Agregar a Inventario</h1>
+
+    <form id="formInventario">
+      <div class="fields">
+        <div class="column">
+          <label for="producto">Ingresar Producto</label>
+          <input type="text" id="producto" name="producto" required />
+
+          <label for="cantidad">Cantidad Producto</label>
+          <input type="number" id="cantidad" name="cantidad" required />
+
+          <label for="precio">Precio X Unidad</label>
+          <input type="text" id="precio" name="precio" placeholder="Q" required />
+        </div>
+
+        <div class="column">
+          <label for="fecha">Fecha Ingreso</label>
+          <input type="date" id="fecha" name="fecha" required />
+
+          <label for="medida">Medida</label>
+          <select id="medida" name="medida">
+            <option value="unidad">Unidad</option>
+            <option value="kg">Kilogramo</option>
+            <option value="litro">Litro</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit" class="btn btn-green">Agregar Producto</button>
+        <button type="button" id="btnVerInventario" class="btn btn-blue">Ver Inventario</button>
+      </div>
+    </form>
+
+    <a href="Menu_Principal.html" class="menu-link">← Menú Principal</a>
+  </div>
+
+  <script>
+    const form = document.getElementById('formInventario');
+    const btnVer = document.getElementById('btnVerInventario');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const producto  = document.getElementById('producto').value.trim();
+      const cantidad  = parseInt(document.getElementById('cantidad').value, 10);
+      const precio    = document.getElementById('precio').value.trim();
+      const fecha     = document.getElementById('fecha').value;
+      const medida    = document.getElementById('medida').value;
+
+      const [y, m, d] = fecha.split('-');
+      const fechaFmt = `${d}-${m}-${y}`;
+
+      const item = { producto, cantidad, precio, fecha: fechaFmt, medida };
+
+      const inventario = JSON.parse(localStorage.getItem('inventario')) || [];
+      inventario.push(item);
+      localStorage.setItem('inventario', JSON.stringify(inventario));
+
+      form.reset();
+      document.getElementById('producto').focus();
+
+      // Mostrar SweetAlert en lugar del alert clásico
+      Swal.fire({
+        icon: 'success',
+        title: 'Producto agregado',
+        text: 'El producto fue agregado correctamente al inventario.',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Aceptar'
+      });
+    });
+
+    btnVer.addEventListener('click', () => {
+      window.location.href = 'Vista_inventario.html';
+    });
+  </script>
+
+</body>
+</html>

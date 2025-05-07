@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pantalla de Pedido</title>
+  <link rel="stylesheet" href="Style.css/Pedidos.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="app">
+    <!-- PANEL IZQUIERDO -->
+    <aside class="sidebar sidebar--left">
+      <div class="spinner">
+        <label for="qty-input">Cantidad</label>
+        <div class="spinner-control vertical">
+          <button class="arrow" id="qty-up">▲</button>
+          <input type="number" id="qty-input" value="1" min="1" step="1" />
+          <button class="arrow" id="qty-down">▼</button>
+        </div>
+      </div>
+      <div class="spinner">
+        <label for="table-input">Mesa</label>
+        <div class="spinner-control vertical">
+          <button class="arrow" id="table-up">▲</button>
+          <input type="number" id="table-input" value="1" min="1" step="1" />
+          <button class="arrow" id="table-down">▼</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- PANEL CENTRAL -->
+    <main class="panel-main">
+      <!-- ENTRADAS -->
+      <section class="group">
+        <h2>Entradas</h2>
+        <div class="items-grid">
+          <div class="product" data-name="Chilaquiles" data-price="30.00">
+            <img src="Imagenes/Chilaquiles.jpeg" alt="Chilaquiles">
+            <div class="prod-info">
+              <span class="prod-name">Chilaquiles</span>
+              <span class="prod-price">Q30.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Los Nachos" data-price="30.00">
+            <img src="Imagenes/Nachos.jpg" alt="Los Nachos">
+            <div class="prod-info">
+              <span class="prod-name">Los Nachos</span>
+              <span class="prod-price">Q30.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Las Papasitas" data-price="30.00">
+            <img src="Imagenes/Papasitas.jpg" alt="Las Papasitas">
+            <div class="prod-info">
+              <span class="prod-name">Las Papasitas</span>
+              <span class="prod-price">Q30.00</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMIDA -->
+      <section class="group">
+        <h2>Comida</h2>
+        <div class="items-grid">
+          <div class="product" data-name="Panito Yucateco" data-price="16.00">
+            <img src="Imagenes/Panito_Yucateco.jpeg" alt="Panito Yucateco">
+            <div class="prod-info">
+              <span class="prod-name">Panito Yucateco</span>
+              <span class="prod-price">Q16.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Super Gringa" data-price="40.00">
+            <img src="Imagenes/Super_Gringas.jpg" alt="Super Gringa">
+            <div class="prod-info">
+              <span class="prod-name">Super Gringa</span>
+              <span class="prod-price">Q40.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Quesobirrias" data-price="25.00">
+            <img src="Imagenes/Queso_Birria.jpg" alt="Quesobirrias">
+            <div class="prod-info">
+              <span class="prod-name">Quesobirrias</span>
+              <span class="prod-price">Q25.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Taqueso" data-price="35.00">
+            <img src="Imagenes/Taqueso.jpg" alt="Taqueso">
+            <div class="prod-info">
+              <span class="prod-name">Taqueso</span>
+              <span class="prod-price">Q35.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Burrito" data-price="40.00">
+            <img src="Imagenes/Burrito.jpg" alt="Burrito">
+            <div class="prod-info">
+              <span class="prod-name">Burrito</span>
+              <span class="prod-price">Q40.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Alambre" data-price="45.00">
+            <img src="Imagenes/Alambre.jpeg" alt="Alambre">
+            <div class="prod-info">
+              <span class="prod-name">Alambre</span>
+              <span class="prod-price">Q45.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Taco Pizza Jr" data-price="35.00">
+            <img src="Imagenes/Taco_Pizza_JR.jpg" alt="Taco Pizza Jr">
+            <div class="prod-info">
+              <span class="prod-name">Taco Pizza Jr</span>
+              <span class="prod-price">Q35.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Taco Pizza XL" data-price="99.00">
+            <img src="Imagenes/Taco_Pizza.jpg" alt="Taco Pizza XL">
+            <div class="prod-info">
+              <span class="prod-name">Taco Pizza XL</span>
+              <span class="prod-price">Q99.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Tacos Bros (2 pz)" data-price="20.00">
+            <img src="Imagenes/Tacos_Bros.jpg" alt="Tacos Bros (2 pz)">
+            <div class="prod-info">
+              <span class="prod-name">Tacos Bros(2pz)</span>
+              <span class="prod-price">Q20.00</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+       <!-- BEBIDAS -->
+       <section class="group">
+        <h2>Bebidas</h2>
+        <div class="items-grid">
+          <div class="product" data-name="Cantarito" data-price="25.00">
+            <img src="Imagenes/Cantarito.jpeg" alt="Cantarito">
+            <div class="prod-info">
+              <span class="prod-name">Cantarito</span>
+              <span class="prod-price">Q25.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="V8 Preparado" data-price="20.00">
+            <img src="Imagenes/V8_Preparado.png" alt="V8 Preparado">
+            <div class="prod-info">
+              <span class="prod-name">V8 Preparado</span>
+              <span class="prod-price">Q20.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Refresco Natural" data-price="7.00">
+            <img src="Imagenes/Refresco_Natural.png" alt="Refresco Natural">
+            <div class="prod-info">
+              <span class="prod-name">Refresco Natural</span>
+              <span class="prod-price">Q7.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Gaseosa" data-price="7.00">
+            <img src="Imagenes/Gaseosas.png" alt="Gaseosa">
+            <div class="prod-info">
+              <span class="prod-name">Gaseosa</span>
+              <span class="prod-price">Q7.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Agua Pura" data-price="5.00">
+            <img src="Imagenes/Agua_Pura.png" alt="Agua Pura">
+            <div class="prod-info">
+              <span class="prod-name">Agua Pura</span>
+              <span class="prod-price">Q5.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Litro Coca Cola" data-price="15.00">
+            <img src="Imagenes/Litro_Coca.png" alt="Litro Coca Cola">
+            <div class="prod-info">
+              <span class="prod-name">Litro Coca Cola</span>
+              <span class="prod-price">Q15.00</span>
+            </div>
+          </div>
+          <div class="product" data-name="Litro Refresco" data-price="20.00">
+            <!-- Corregido: faltaba el atributo alt -->
+            <img src="Imagenes/Litro_Agua.png" alt="Litro Refresco">
+            <div class="prod-info">
+              <span class="prod-name">Litro Refresco</span>
+              <span class="prod-price">Q20.00</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- PANEL DERECHO -->
+    <aside class="sidebar sidebar--right">
+      <div class="resumen">
+        <h3>Resumen</h3>
+        <p><strong>Mesa:</strong> #<input type="number" id="res-table" value="1" readonly /></p>
+        <p><strong>Orden:</strong> <input type="number" id="order-input" value="1" min="1" step="1" /></p>
+        <div class="invoice">
+          <table>
+            <thead>
+              <tr>
+                <th>Cant.</th><th>Producto</th><th>Precio</th><th>Subtotal</th><th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody id="invoice-body"></tbody>
+          </table>
+        </div>
+        <p class="total"><strong>Total:</strong> Q<span id="res-total">0.00</span></p>
+      </div>
+      <div class="buttons">
+        <button class="btn btn--green">Cobrar</button>
+        <button class="btn btn--orange">Cancelar</button>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    // SPINNERS
+    function wireSpinner(upId, downId, inputId, max=9999) {
+      const up = document.getElementById(upId),
+            down = document.getElementById(downId),
+            inp = document.getElementById(inputId);
+      up.onclick = () => { if(+inp.value<max) inp.value++; inp.dispatchEvent(new Event('change')); };
+      down.onclick = () => { if(+inp.value>+inp.min) inp.value--; inp.dispatchEvent(new Event('change')); };
+      inp.onchange = () => {
+        let v=+inp.value;
+        if(isNaN(v)||v<+inp.min) v=+inp.min;
+        if(v>max) v=max;
+        inp.value=v;
+        if(inputId==='table-input')
+          document.getElementById('res-table').value=v;
+      };
+    }
+    wireSpinner('qty-up','qty-down','qty-input',1000);
+    wireSpinner('table-up','table-down','table-input',100);
+
+    // FACTURA
+    let invoice = [];
+    const tbody = document.getElementById('invoice-body'),
+          totalEl = document.getElementById('res-total');
+
+    function renderInvoice() {
+      tbody.innerHTML = '';
+      let sum = 0;
+      invoice.forEach((item, i) => {
+        const sub = item.qty * item.price;
+        sum += sub;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.qty}</td>
+          <td>${item.name}</td>
+          <td>Q${item.price.toFixed(2)}</td>
+          <td>Q${sub.toFixed(2)}</td>
+          <td><button class="remove-btn" data-index="${i}">&times;</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      totalEl.innerText = sum.toFixed(2);
+      document.querySelectorAll('.remove-btn').forEach(btn =>
+        btn.onclick = () => {
+          invoice.splice(+btn.dataset.index, 1);
+          renderInvoice();
+        }
+      );
+    }
+
+    function addToInvoice(name, price) {
+      const qty = +document.getElementById('qty-input').value;
+      const found = invoice.find(x => x.name === name);
+      if (found) found.qty += qty;
+      else invoice.push({ name, price, qty });
+      renderInvoice();
+    }
+    document.querySelectorAll('.product').forEach(c =>
+      c.onclick = () => addToInvoice(c.dataset.name, parseFloat(c.dataset.price))
+    );
+
+    // COBRAR
+document.querySelector('.btn--green').onclick = () => {
+  if (invoice.length === 0) {
+    Swal.fire('Factura vacía','Agrega un producto.','error');
+    return;
+  }
+  const orderNum = document.getElementById('order-input').value;
+  if (!orderNum) {
+    Swal.fire('Orden faltante','Ingresa número de orden.','error');
+    return;
+  }
+
+  // Guardamos en localStorage
+  localStorage.setItem('invoice', JSON.stringify(invoice));
+  localStorage.setItem('table', document.getElementById('table-input').value);
+  localStorage.setItem('order', orderNum);
+  const total = document.getElementById('res-total').innerText;
+  localStorage.setItem('totalPagar', total);
+
+  // Redirigir a pago
+  window.location.href = 'Eleccion_carne.html';
+};
+
+    // CANCELAR
+    document.querySelector('.btn--orange').onclick = () => {
+      Swal.fire({
+        icon:'warning',
+        title:'Transacción cancelada',
+        text:'La operación ha sido cancelada.'
+      }).then(r => {
+        if (r.isConfirmed) {
+          invoice = [];
+          renderInvoice();
+        }
+      });
+    };
+  </script>
+</body>
+</html>
