@@ -1,0 +1,23 @@
+{
+    "name": "proyectobros",
+    "version": "1.0.0",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node src/app.js",
+        "autoUpgrade": "nodemon src/app.js"
+    },
+    "author": "Stevens",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "mssql": "^11.0.1"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.10",
+        "standard": "^17.1.2"
+    },
+    "eslintConfig": {
+        "extends": "standard"
+    }
+}
