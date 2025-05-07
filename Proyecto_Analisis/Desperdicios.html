@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cálculo de desperdicios</title>
+  <link rel="stylesheet" href="Style.css/Desperdicios.css"/>
+</head>
+<body>
+
+  <header>
+    <h1>Cálculo de desperdicios</h1>
+  </header>
+
+  <main class="desperdicios-main">
+    <!-- Formulario para agregar -->
+    <form id="formAgregar">
+      <input type="text" id="inpProducto" placeholder="Producto" required />
+      <input type="number" id="inpPerdida" placeholder="Pérdida Total Q" required step="1" />
+      <input type="date" id="inpFecha" required />
+      <button type="submit">Agregar</button>
+    </form>
+
+    <!-- Tabla de desperdicios -->
+    <table>
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Pérdida Total</th>
+          <th>Fecha de caducidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tbodyDesperdicios"></tbody>
+    </table>
+
+    <div class="buttons">
+      <button class="btn btn-orange" id="btnInventario">Inventario</button>
+    </div>
+  </main>
+
+  <!-- Script de SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    const form = document.getElementById('formAgregar');
+    const tbody = document.getElementById('tbodyDesperdicios');
+
+    let datos = JSON.parse(localStorage.getItem('desperdicios')) || [
+      { producto:'Carne de Birria', perdida:1000.00, fecha:'05-02-2025' },
+      { producto:'Carne de Cochito', perdida:1000.00, fecha:'05-02-2025' },
+      { producto:'Queso Cheddar', perdida:50.00, fecha:'28-04-2025' },
+      { producto:'Crema para tacos', perdida:200.00, fecha:'10-02-2025' },
+    ];
+
+    renderTabla();
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const p = document.getElementById('inpProducto').value.trim();
+      const perd = parseFloat(document.getElementById('inpPerdida').value);
+      const fechaInput = document.getElementById('inpFecha').value;
+      const f = fechaInput.split('-').reverse().join('-');
+      datos.push({ producto: p, perdida: perd, fecha: f });
+      renderTabla();
+      form.reset();
+      Swal.fire({
+        icon: 'success',
+        title: 'Agregado',
+        text: 'El producto fue agregado exitosamente.'
+      });
+    });
+
+    tbody.addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.index, 10);
+
+      if (btn.classList.contains('delete')) {
+        Swal.fire({
+          title: '¿Eliminar este registro?',
+          text: 'Esta acción no se puede deshacer.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Sí, eliminar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            datos.splice(idx, 1);
+            renderTabla();
+            Swal.fire({
+              icon: 'success',
+              title: 'Eliminado',
+              text: 'El registro se eliminó correctamente.'
+            });
+          }
+        });
+      }
+
+      if (btn.classList.contains('edit')) {
+        const item = datos[idx];
+        Swal.fire({
+          title: 'Editar registro',
+          html:
+            `<input id="swalProducto" class="swal2-input" placeholder="Producto" value="${item.producto}">
+             <input id="swalPerdida" class="swal2-input" type="number" placeholder="Pérdida Q" value="${item.perdida}">
+             <input id="swalFecha" class="swal2-input" type="text" placeholder="Fecha DD-MM-YYYY" value="${item.fecha}">`,
+          focusConfirm: false,
+          showCancelButton: true,
+          confirmButtonText: 'Guardar',
+          cancelButtonText: 'Cancelar',
+          preConfirm: () => {
+            const nuevoProducto = document.getElementById('swalProducto').value;
+            const nuevaPerdida = parseFloat(document.getElementById('swalPerdida').value);
+            const nuevaFecha = document.getElementById('swalFecha').value;
+            if (!nuevoProducto || isNaN(nuevaPerdida) || !nuevaFecha) {
+              Swal.showValidationMessage('Por favor completa todos los campos');
+              return false;
+            }
+            return { producto: nuevoProducto, perdida: nuevaPerdida, fecha: nuevaFecha };
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            datos[idx] = result.value;
+            renderTabla();
+            Swal.fire({
+              icon: 'success',
+              title: 'Actualizado',
+              text: 'El registro fue editado correctamente.'
+            });
+          }
+        });
+      }
+    });
+
+    function renderTabla() {
+      tbody.innerHTML = '';
+      datos.forEach((it, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${it.producto}</td>
+          <td>Q ${it.perdida.toFixed(2)}</td>
+          <td>${it.fecha}</td>
+          <td class="actions">
+            <button class="edit" data-index="${i}">✍</button>
+            <button class="delete" data-index="${i}">🗑️</button>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+      localStorage.setItem('desperdicios', JSON.stringify(datos));
+    }
+
+    document.getElementById('btnInventario').addEventListener('click', () => {
+      window.location.href = 'Vista_Inventario.html';
+    });
+  </script>
+
+</body>
+</html>

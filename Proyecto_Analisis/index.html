@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crear Usuario</title>
+  <link rel="stylesheet" href="Style.css/Style.css"/>
+  <!-- SweetAlert2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Crear Usuario</h1>
+    <img src="Imagenes/Logo Empresa.png" alt="Logo_Bros" class="logo" />
+
+    <form onsubmit="return abrir(event)">
+      <div class="field">
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" name="usuario" />
+      </div>
+
+      <div class="field">
+        <label for="password">Contraseña</label>
+        <div class="password-container">
+          <input type="password" id="password" name="password" />
+          <span class="eye-icon" id="togglePassword">👁️</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn">Crear Cuenta</button>
+    </form>
+
+    <a href="Inicio_Sesion.html" class="login-link">Iniciar Sesión</a>
+  </div>
+
+  <script>
+    // Mostrar/ocultar contraseña
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", () => {
+      const isPasswordVisible = passwordInput.type === "text";
+      passwordInput.type = isPasswordVisible ? "password" : "text";
+      togglePassword.textContent = isPasswordVisible ? "👁️" : "👁️";
+    });
+
+    // Validación de campos
+    function abrir(event) {
+      event.preventDefault(); // Evita que el formulario se envíe automáticamente
+
+      const usuario = document.getElementById('usuario').value;
+      const contraseña = document.getElementById('password').value;
+
+      if (usuario.trim() === '' || contraseña.trim() === '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Necesita llenar todos los campos.',
+          confirmButtonColor: '#d33',
+          confirmButtonText: 'Entendido',
+          customClass: {
+            popup: 'animated tada'
+          }
+        });
+        return false; // Impide el envío del formulario
+      }
+
+      // Si pasa la validación, puedes enviar el formulario aquí o hacer otra acción.
+      Swal.fire({
+        icon: 'success',
+        title: 'Usuario creado',
+        text: 'Se ha creado el usuario correctamente.',
+        confirmButtonColor: '#28a745'
+      });
+
+      return true;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+/* ----------------------------
+   RESET y LAYOUT GENERAL
+   ---------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-top: 40px;
+}
+
+/* ----------------------------
+   CONTENEDOR PRINCIPAL
+   ---------------------------- */
+.inventario-container {
+  width: 640px;
+  text-align: center;
+}
+
+/* Título */
+.inventario-container h1 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+}
+
+/* ----------------------------
+   FORMULARIO EN DOS COLUMNAS
+   ---------------------------- */
+.fields {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+/* Cada columna */
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+}
+
+/* Labels */
+.column label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #ffd700;
+  text-align: left;
+}
+
+/* Inputs y select */
+.column input[type="text"],
+.column input[type="number"],
+.column input[type="date"],
+.column select {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(to bottom, #f2f2f2, #ccc);
+  color: #000;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+}
+
+/* ----------------------------
+   BOTONES
+   ---------------------------- */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 30px;
+  align-items: center;
+}
+
+/* Estilo base */
+.btn {
+  width: 260px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: transform .1s ease;
+}
+
+/* Botón verde */
+.btn-green {
+  background-color: #00c853;
+}
+.btn-green:active {
+  transform: scale(0.97);
+}
+
+/* Botón azul */
+.btn-blue {
+  background-color: #005eff;
+}
+.btn-blue:active {
+  transform: scale(0.97);
+}
+
+/* ----------------------------
+   ENLACE AL MENÚ PRINCIPAL
+   ---------------------------- */
+.menu-link {
+  display: inline-block;
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+}

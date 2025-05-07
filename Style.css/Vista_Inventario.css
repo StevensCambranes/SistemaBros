@@ -1,0 +1,101 @@
+/* RESET + 100% HEIGHT */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  html, body {
+    height: 100%;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* HEADER full-width */
+  header {
+    width: 100%;
+    background: #000;
+    text-align: center;
+    padding: 12px 0;
+  }
+  header h1 {
+    color: #fff;
+    font-size: 1.8rem;
+  }
+  
+  /* MAIN: ocupa todo el resto */
+  .inventario-main {
+    flex: 1;
+    background: linear-gradient(to bottom, #f2f2f2, #999);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+  }
+  
+  /* TABLA centrada y con max-width */
+  table {
+    width: 90%;
+    max-width: 800px;
+    border-collapse: collapse;
+  }
+  thead th {
+    text-align: left;
+    padding: 10px;
+    font-weight: bold;
+  }
+  tbody td {
+    padding: 10px;
+    font-size: 1rem;
+  }
+  /* Separador entre filas */
+  tbody tr + tr td {
+    border-top: 1px solid #666;
+  }
+  
+  /* ACCIONES (iconos) */
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+  }
+  .icon-btn.edit   { background: #0b4dbedb; }
+  .icon-btn.delete { background: #f10534; }
+  
+  /* BOTONES pies, centrados */
+  .buttons {
+    display: flex;
+    gap: 30px;
+  }
+  .btn {
+    width: 140px;
+    height: 44px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform .1s ease;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-blue   { background: #005eff; }
+  .btn-green  { background: #00c853; }
+  .btn-orange { background: #bf6e00; }
+  

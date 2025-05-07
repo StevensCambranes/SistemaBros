@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menú Bros</title>
+  <link rel="stylesheet" href="Style.css/MenuPrincipal.css" />
+</head>
+<body>
+
+  <!-- Imágenes decorativas -->
+  <img src="Imagenes/Aguacate.png" alt="Guacamole" class="decor decor-guac" />
+  <img src="Imagenes/Taco.png" alt="Tacos" class="decor decor-tacos" />
+
+  <!-- Contenedor central del menú -->
+  <div class="menu-container">
+    <img src="Imagenes/Logo Empresa.png" alt="Logo Bros" class="logo" />
+
+    <nav class="menu-buttons">
+      <button id="btnAgregar" class="btn btn-blue">Agregar Producto</button>
+      <button id="btnInventario" class="btn btn-yellow">Ver Inventario</button>
+      <button id="btnVenta" class="btn btn-green">Venta</button>
+      <button id="btnCierre" class="btn btn-red">Cierre</button>
+    </nav>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const btnAgregar    = document.getElementById('btnAgregar');
+    const btnInventario = document.getElementById('btnInventario');
+    const btnVenta      = document.getElementById('btnVenta');
+    const btnCierre     = document.getElementById('btnCierre');
+
+    btnAgregar.addEventListener('click', () => {
+      // Guardar bandera para mostrar alerta en la siguiente página
+      localStorage.setItem('mostrarAlertaAgregado', 'true');
+      window.location.href = 'Inventario.html';
+    });
+
+    btnInventario.addEventListener('click', () => window.location.href = 'Vista_Inventario.html');
+    btnVenta.addEventListener('click', () => window.location.href = 'Pedidos.html');
+    btnCierre.addEventListener('click', () => window.location.href = 'Resumen.html');
+  </script>
+
+</body>
+</html>

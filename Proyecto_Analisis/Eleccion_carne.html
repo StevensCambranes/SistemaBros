@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ingredientes</title>
+  <link rel="stylesheet" href="Style.css/Eleccion.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="app">
+    <!-- PANEL CENTRAL -->
+    <main class="panel-main">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Selecciona Tipo y Toppings</h2>
+          <!-- botón “×” eliminado -->
+        </div>
+        <div class="modal-body">
+          <div class="section tacos">
+            <button class="btn taco birria"    data-type="Birria">Birria</button>
+            <button class="btn taco cochito"   data-type="Cochito">Cochito</button>
+            <button class="btn taco mixta"     data-type="Mixta">Mixta</button>
+            <button class="btn taco temporada" data-type="De Temporada">Temporada</button>
+          </div>
+          <div class="section toppings">
+            <h3>Toppings</h3>
+            <button class="btn topping cebolla" data-top="Cebolla">Cebolla</button>
+            <button class="btn topping repollo" data-top="Repollo">Repollo</button>
+            <button class="btn topping queso"   data-top="Queso">Queso</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- PANEL DERECHO -->
+    <aside class="sidebar sidebar--right">
+      <div class="resumen">
+        <h3>Resumen</h3>
+
+        <!-- Campos Mesa y Orden como inputs readonly -->
+        <div class="field">
+          <label for="mesa-input">Mesa: #</label>
+          <input id="mesa-input" type="number" readonly>
+        </div>
+        <div class="field">
+          <label for="orden-input">Orden:</label>
+          <input id="orden-input" type="number" readonly>
+        </div>
+
+        <ul class="orden-list"></ul>
+        <p class="total">Total<br>Q0.00</p>
+      </div>
+      <button class="btn btn--green">Cobrar</button>
+      <button class="btn btn--orange">Cancelar</button>
+    </aside>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1) Datos
+      const invoice = JSON.parse(localStorage.getItem('invoice') || '[]');
+      const table   = localStorage.getItem('table')   || '1';
+      const order   = localStorage.getItem('order')   || '';
+
+      // 2) Rellenar inputs (readonly)
+      document.getElementById('mesa-input').value  = table;
+      document.getElementById('orden-input').value = order;
+
+      // 3) Referencias
+      const lista  = document.querySelector('.orden-list');
+      const totalE = document.querySelector('.total');
+
+      // 4) Render factura
+      let suma = 0;
+      lista.innerHTML = '';
+      invoice.forEach((item,i) => {
+        item.toppings ||= [];
+        const sub = item.qty * item.price;
+        suma += sub;
+        const descType = item.type
+          ? ` (${item.type}${item.toppings.length ? ': ' + item.toppings.join(', ') : ''})`
+          : '';
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <span class="remove" data-index="${i}">&times;</span>
+          <span class="desc">
+            ${item.qty} ${item.name}${descType} = Q${sub.toFixed(2)}
+          </span>
+        `;
+        li.querySelector('.remove').onclick = () => {
+          invoice.splice(i,1);
+          localStorage.setItem('invoice', JSON.stringify(invoice));
+          location.reload();
+        };
+        lista.appendChild(li);
+      });
+      totalE.innerHTML = `Total<br>Q${suma.toFixed(2)}`;
+
+      // 5) Pregunta de línea
+      function askLinea(promptText) {
+        const opts = invoice.map((it, idx) => ({
+          text: `${it.qty} ${it.name}${it.type?' ('+it.type+')':''}`,
+          value: idx
+        }));
+        return Swal.fire({
+          title: promptText,
+          input: 'select',
+          inputOptions: opts.reduce((o,x)=>(o[x.value]=x.text,o),{}),
+          inputPlaceholder: 'Selecciona línea',
+          showCancelButton: true
+        });
+      }
+
+      // 6) Selección de tipo
+      document.querySelectorAll('.btn.taco').forEach(btn => {
+        btn.onclick = () => {
+          if (!invoice.length) return Swal.fire('Factura vacía','No hay productos.','error');
+          askLinea(`¿A qué línea agregas <strong>${btn.dataset.type}</strong>?`)
+            .then(res => {
+              if (res.isConfirmed) {
+                invoice[res.value].type = btn.dataset.type;
+                localStorage.setItem('invoice', JSON.stringify(invoice));
+                location.reload();
+              }
+            });
+        };
+      });
+
+      // 7) Selección toppings
+      document.querySelectorAll('.btn.topping').forEach(btn => {
+        btn.onclick = () => {
+          if (!invoice.length) return Swal.fire('Factura vacía','No hay productos.','error');
+          askLinea(`¿A qué línea agregas <strong>${btn.dataset.top}</strong>?`)
+            .then(res => {
+              if (res.isConfirmed) {
+                const arr = invoice[res.value].toppings;
+                if (!arr.includes(btn.dataset.top)) arr.push(btn.dataset.top);
+                localStorage.setItem('invoice', JSON.stringify(invoice));
+                location.reload();
+              }
+            });
+        };
+      });
+
+      // 8) Cobrar
+      document.querySelector('.btn--green').onclick = () => {
+        if (!invoice.length) {
+          Swal.fire({icon:'error',title:'Factura vacía',text:'No hay productos en la factura.'})
+            .then(r => {
+              if (r.isConfirmed) {
+                ['invoice','table','order'].forEach(k=>localStorage.removeItem(k));
+                window.history.back();
+              }
+            });
+        } else {
+          window.location.href = 'Metodo_de_Pago.html';
+        }
+      };
+
+      // 9) Cancelar
+      document.querySelector('.btn--orange').onclick = () => {
+        Swal.fire({icon:'warning',title:'Transacción cancelada',text:'La operación ha sido cancelada.'})
+          .then(r => {
+            if (r.isConfirmed) {
+              ['invoice','table','order'].forEach(k=>localStorage.removeItem(k));
+              window.location.href = 'Pedidos.html';
+            }
+          });
+      };
+    });
+  </script>
+</body>
+</html>
