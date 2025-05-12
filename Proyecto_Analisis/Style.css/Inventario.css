@@ -1,6 +1,6 @@
 /* ----------------------------
    RESET y LAYOUT GENERAL
-   ---------------------------- */
+---------------------------- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,16 +14,18 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: start;
-  padding-top: 40px;
+  align-items: center;
+  padding: 20px;
 }
 
 /* ----------------------------
    CONTENEDOR PRINCIPAL
-   ---------------------------- */
+---------------------------- */
 .inventario-container {
-  width: 640px;
+  width: 90%;
+  max-width: 700px;
   text-align: center;
+  padding-bottom: 10vh;
 }
 
 /* Título */
@@ -36,7 +38,7 @@ body {
 
 /* ----------------------------
    FORMULARIO EN DOS COLUMNAS
-   ---------------------------- */
+---------------------------- */
 .fields {
   display: flex;
   justify-content: space-between;
@@ -44,11 +46,11 @@ body {
   margin-bottom: 30px;
 }
 
-/* Cada columna */
 .column {
   display: flex;
   flex-direction: column;
   width: 48%;
+  min-width: 280px;
 }
 
 /* Labels */
@@ -59,7 +61,7 @@ body {
   text-align: left;
 }
 
-/* Inputs y select */
+/* Inputs y selects */
 .column input[type="text"],
 .column input[type="number"],
 .column input[type="date"],
@@ -78,7 +80,7 @@ body {
 
 /* ----------------------------
    BOTONES
-   ---------------------------- */
+---------------------------- */
 .buttons {
   display: flex;
   flex-direction: column;
@@ -87,7 +89,6 @@ body {
   align-items: center;
 }
 
-/* Estilo base */
 .btn {
   width: 260px;
   height: 48px;
@@ -100,7 +101,6 @@ body {
   transition: transform .1s ease;
 }
 
-/* Botón verde */
 .btn-green {
   background-color: #00c853;
 }
@@ -108,7 +108,6 @@ body {
   transform: scale(0.97);
 }
 
-/* Botón azul */
 .btn-blue {
   background-color: #005eff;
 }
@@ -118,11 +117,112 @@ body {
 
 /* ----------------------------
    ENLACE AL MENÚ PRINCIPAL
-   ---------------------------- */
+---------------------------- */
 .menu-link {
   display: inline-block;
   color: #ffd700;
   text-decoration: none;
   font-weight: bold;
   margin-top: 10px;
+}
+
+/* ----------------------------
+   MEDIA QUERIES RESPONSIVE
+---------------------------- */
+@media (max-width: 767px) {
+  body {
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
+  .fields {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .inventario-container h1 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 399px) {
+  body {
+    align-items: flex-start;
+    padding: 30px 10px;
+  }
+
+  .inventario-container h1 {
+    font-size: 1.4rem;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 0.95rem;
+    height: 45px;
+  }
+
+  .column input[type="text"],
+  .column input[type="number"],
+  .column input[type="date"],
+  .column select {
+    font-size: 0.95rem;
+    height: 38px;
+  }
+
+  .menu-link {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 200px) {
+  body {
+    padding: 10px 5px;
+    align-items: flex-start;
+  }
+
+  .inventario-container h1 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  .fields {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .column input[type="text"],
+  .column input[type="number"],
+  .column input[type="date"],
+  .column select {
+    font-size: 0.75rem;
+    width: 135px;
+    height: 30px;
+    padding: 0 5px;
+    margin-bottom: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 0.8rem;
+    height: 36px;
+  }
+
+  .menu-link {
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 8px;
+  }
 }

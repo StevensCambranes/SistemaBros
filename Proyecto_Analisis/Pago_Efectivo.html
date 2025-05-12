@@ -2,93 +2,191 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <!-- Meta viewport para que funcione el responsive en móviles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pantalla de Pago</title>
+  <!-- Enlaza tu CSS externo -->
   <link rel="stylesheet" href="Style.css/Pago_Efectivo.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <div class="payment-screen">
-    <h1 class="payment-title">Pago en efectivo</h1>
+    <!-- Panel Izquierdo: Detalle de Factura -->
+    <aside class="left-panel">
+      <h2>Detalle de Factura</h2>
+      <table id="invoice-detail-table">
+        <thead>
+          <tr>
+            <th>Cant.</th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="invoice-detail-body"></tbody>
+      </table>
+    </aside>
 
-    <!-- Métodos -->
-    <div class="payment-methods">
-      <a class="payment-method selected" href="Pago_Efectivo.html">
-        <img src="Imagenes/money.svg" alt="Efectivo">
-        <p>Efectivo</p>
-      </a>
-      <a class="payment-method" href="Pago_Tarjeta.html">
-        <img src="Imagenes/credit-card.svg" alt="Tarjeta">
-        <p>Tarjeta</p>
-      </a>
-      <a class="payment-method" href="Pago_Transferencia.html">
-        <img src="Imagenes/transferencia-movil.png" alt="Pago Móvil">
-        <p>Transferencia</p>
-      </a>
-    </div>
+    <!-- Panel Derecho: Pago -->
+    <main class="right-panel">
+      <!-- Encabezado Taquería (se ve en pantalla y en PDF) -->
+      <div class="print-header">Taqueria BROS</div>
 
-    <!-- Total dinámico -->
-    <div class="total">
-      <span>Total: <strong id="total-amount">Q 0.00</strong></span>
-    </div>
+      <!-- Título solo en pantalla -->
+      <h1 class="payment-title no-print">Pago en efectivo</h1>
 
-    <!-- Pago y cálculo -->
-    <div class="payment-input">
-      <label for="payment">Paga con</label>
-      <input type="number" id="payment" placeholder="0.00" step="1">
-      <button class="btn calculate" onclick="calcularCambio()">Calcular</button>
-    </div>
+      <!-- Métodos de pago (solo en pantalla) -->
+      <div class="payment-methods no-print">
+        <a class="payment-method selected" href="Pago_Efectivo.html">
+          <img src="Imagenes/money.svg" alt="Efectivo">
+          <p>Efectivo</p>
+        </a>
+        <a class="payment-method" href="Pago_Tarjeta.html">
+          <img src="Imagenes/credit-card.svg" alt="Tarjeta">
+          <p>Tarjeta</p>
+        </a>
+        <a class="payment-method" href="Pago_Transferencia.html">
+          <img src="Imagenes/transferencia-movil.png" alt="Transferencia">
+          <p>Transferencia</p>
+        </a>
+      </div>
 
-    <!-- Cambio -->
-    <div class="change">
-      <span>Cambio: <strong id="change-amount">Q 0.00</strong></span>
-    </div>
+      <!-- Total a pagar -->
+      <div class="total">
+        <span>Total a Pagar: <strong id="total-amount">Q 0.00</strong></span>
+      </div>
 
-    <button class="btn print" onclick="window.print()">Imprimir Comanda</button>
-    <button class="btn cancel" onclick="cancelarTransaccion()">Cancelar Transacción</button>
+      <!-- Input de pago y botón calcular (solo en pantalla) -->
+      <div class="payment-input no-print">
+        <label for="payment">Paga con</label>
+        <input type="text" id="payment" placeholder="0.00" inputmode="decimal">
+        <button class="btn calculate" onclick="calcularCambio()">Calcular</button>
+      </div>
+
+      <!-- Valor “Paga con” que aparece en PDF -->
+      <div class="payment-print print-only">
+        <span>Paga con: <strong id="payment-value-print">Q 0.00</strong></span>
+      </div>
+
+      <!-- Cambio -->
+      <div class="change">
+        <span>Cambio: <strong id="change-amount">Q 0.00</strong></span>
+      </div>
+
+      <!-- Botones de acción (solo en pantalla) -->
+      <button class="btn print no-print" onclick="printInvoice()">Imprimir Factura</button>
+      <button class="btn cancel no-print" onclick="cancelarTransaccion()">Cancelar Transacción</button>
+    </main>
   </div>
 
   <script>
-    // Obtener total de localStorage al cargar
+    // Carga inicial: agrupa productos y muestra total
     document.addEventListener('DOMContentLoaded', () => {
-      const total = localStorage.getItem('totalPagar');
-      if (total) {
-        document.getElementById('total-amount').innerText = `Q ${parseFloat(total).toFixed(2)}`;
+      const invoiceOriginal = JSON.parse(localStorage.getItem('invoice') || '[]');
+      const totalStored   = localStorage.getItem('totalPagar');
+      const body          = document.getElementById('invoice-detail-body');
+
+      const agrupados = invoiceOriginal.reduce((acc, item) => {
+        const existente = acc.find(p => p.name === item.name);
+        if (existente) existente.qty += item.qty;
+        else acc.push({ name: item.name, price: item.price, qty: item.qty });
+        return acc;
+      }, []);
+
+      agrupados.forEach(item => {
+        const sub = item.qty * item.price;
+        const tr  = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.qty}</td>
+          <td>${item.name}</td>
+          <td>Q${item.price.toFixed(2)}</td>
+          <td>Q${sub.toFixed(2)}</td>
+        `;
+        body.appendChild(tr);
+      });
+
+      if (totalStored) {
+        document.getElementById('total-amount')
+                .innerText = `Q ${parseFloat(totalStored).toFixed(2)}`;
       }
     });
 
-    // Calcular cambio
-    function calcularCambio() {
-      const totalTexto = document.getElementById("total-amount").innerText;
-      const pago = parseFloat(document.getElementById("payment").value);
-      const total = parseFloat(totalTexto.replace("Q", "").trim());
-      const cambio = pago - total;
+    // Validación de input numérico
+    const paymentInput = document.getElementById('payment');
+    paymentInput.addEventListener('keypress', function(e) {
+      const char = String.fromCharCode(e.which);
+      if (!/[0-9.]/.test(char) || (char === '.' && this.value.includes('.'))) e.preventDefault();
+    });
+    paymentInput.addEventListener('input', function() {
+      let v = this.value.replace(/[^0-9.]/g, '');
+      v = v.replace(/(\..*)\./g, '$1');
+      if (v.startsWith('.')) v = '0' + v;
+      this.value = v;
+    });
 
-      document.getElementById("change-amount").innerText = isNaN(cambio) || cambio < 0
-        ? "Q 0.00"
-        : `Q ${cambio.toFixed(2)}`;
+    let cobroRealizado = false;
+
+    function calcularCambio() {
+      const total = parseFloat(
+        document.getElementById('total-amount').innerText.replace('Q','').trim()
+      );
+      const pago = parseFloat(paymentInput.value);
+      if (isNaN(pago)) {
+        return Swal.fire('Error','Ingrese un monto válido.','error');
+      }
+      if (pago < total) {
+        Swal.fire('Pago insuficiente','El monto ingresado es menor al total.','error');
+        document.getElementById('change-amount').innerText = 'Q 0.00';
+        cobroRealizado = false;
+        return;
+      }
+      const cambio = pago - total;
+      document.getElementById('change-amount')
+              .innerText = `Q ${cambio.toFixed(2)}`;
+      cobroRealizado = true;
+      document.getElementById('payment-value-print')
+              .innerText = `Q ${pago.toFixed(2)}`;
+      Swal.fire('Pago registrado',`Cambio: Q ${cambio.toFixed(2)}`,'success');
     }
 
-    // Cancelar transacción
     function cancelarTransaccion() {
       Swal.fire({
-        title: '¿Está seguro de cancelar la transacción?',
+        title: '¿Cancelar transacción?',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6'
-      }).then((result) => {
+        confirmButtonText: 'Sí, cancelar',
+        cancelButtonText: 'No'
+      }).then(result => {
         if (result.isConfirmed) {
-          Swal.fire({
-            title: 'Transacción cancelada con éxito',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-          }).then(() => {
-            window.location.href = 'Pedidos.html';
-          });
+          window.location.href = 'Pedidos.html';
         }
       });
+    }
+
+    function printInvoice() {
+      if (!cobroRealizado) {
+        return Swal.fire('Atención','Primero debe realizar el cobro.','warning');
+      }
+      const total = parseFloat(
+        document.getElementById('total-amount').innerText.replace('Q','').trim()
+      );
+      const pago = parseFloat(paymentInput.value);
+      if (isNaN(pago) || pago <= 0) {
+        return Swal.fire('Error','No ha ingresado ningún valor de pago.','error');
+      }
+      if (pago < total) {
+        return Swal.fire(
+          'Pago insuficiente',
+          'El monto ingresado es menor al total. No se puede imprimir la factura.',
+          'error'
+        );
+      }
+      window.print();
+      setTimeout(() => {
+        ['invoice','totalPagar','table','order']
+          .forEach(k => localStorage.removeItem(k));
+        window.location.href = 'Pedidos.html';
+      }, 1000);
     }
   </script>
 </body>

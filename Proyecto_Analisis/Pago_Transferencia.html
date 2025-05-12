@@ -3,83 +3,159 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pantalla de Pago con Transferencia</title>
+  <title>Pantalla de Pago por Transferencia</title>
   <link rel="stylesheet" href="Style.css/Pago_Transferencia.css"/>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
   <div class="payment-screen">
-    <h1 class="payment-title">Pago por Transferencia</h1>
+    <!-- PANEL IZQUIERDO: Detalle de Factura -->
+    <aside class="left-panel">
+      <h2>Detalle de Factura</h2>
+      <table id="invoice-detail-table">
+        <thead>
+          <tr>
+            <th>Cant.</th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="invoice-detail-body"></tbody>
+      </table>
+    </aside>
 
-    <!-- Métodos -->
-    <div class="payment-methods">
-      <a class="payment-method" href="Pago_Efectivo.html">
-        <img src="Imagenes/money.svg" alt="Efectivo">
-        <p>Efectivo</p>
-      </a>
-      <a class="payment-method" href="Pago_Tarjeta.html">
-        <img src="Imagenes/credit-card.svg" alt="Tarjeta">
-        <p>Tarjeta</p>
-      </a>
-      <a class="payment-method selected" href="Pago_Transferencia.html">
-        <img src="Imagenes/transferencia-movil.png" alt="Transferencia">
-        <p>Transferencia</p>
-      </a>
-    </div>
+    <!-- PANEL DERECHO: Pago por Transferencia -->
+    <main class="right-panel">
+      <!-- HEADER solo para PDF -->
+      <div class="print-header">
+        <div class="print-store">Taqueria BROS</div>
+        <div class="print-title">Pago por Transferencia</div>
+        <div class="print-order">
+          Orden: <strong id="order-name-print"></strong>
+        </div>
+      </div>
 
-    <!-- Formulario personalizado -->
-    <div class="payment-input">
-      <label for="order-name">Nombre de Orden</label>
-      <input type="text" id="order-name" placeholder="Cliente..." />
-    </div>
+      <!-- Título visible en pantalla -->
+      <h1 class="payment-title no-print">Pago por Transferencia</h1>
 
-    <div class="payment-input">
-      <label for="payment">Paga con</label>
-      <input type="text" id="payment" readonly value="Q 0.00" />
-    </div>
+      <!-- Métodos (solo en pantalla) -->
+      <div class="payment-methods no-print">
+        <a class="payment-method" href="Pago_Efectivo.html">
+          <img src="Imagenes/money.svg" alt="Efectivo">
+          <p>Efectivo</p>
+        </a>
+        <a class="payment-method" href="Pago_Tarjeta.html">
+          <img src="Imagenes/credit-card.svg" alt="Tarjeta">
+          <p>Tarjeta</p>
+        </a>
+        <a class="payment-method selected" href="Pago_Transferencia.html">
+          <img src="Imagenes/transferencia-movil.png" alt="Transferencia">
+          <p>Transferencia</p>
+        </a>
+      </div>
 
-    <!-- Total dinámico -->
-    <div class="total">
-      <span>Total: <strong id="total-amount">Q 0.00</strong></span>
-    </div>
+      <!-- Nombre de Orden (solo en pantalla) -->
+      <div class="payment-input no-print">
+        <label for="order-name">Nombre de Orden</label>
+        <input type="text" id="order-name" placeholder="Cliente..." />
+      </div>
+      <div class="payment-input no-print">
+        <label for="payment">Paga con</label>
+        <input type="text" id="payment" readonly value="Q 0.00" />
+      </div>
 
-    <button class="btn print" onclick="window.print()">Imprimir Comanda</button>
-    <button class="btn cancel" onclick="cancelarTransaccion()">Cancelar Transacción</button>
+      <!-- Total dinámico -->
+      <div class="total">
+        <span>Total: <strong id="total-amount">Q 0.00</strong></span>
+      </div>
+
+      <!-- Botones (solo en pantalla) -->
+      <button class="btn print no-print" onclick="printComanda()">Imprimir Factura</button>
+      <button class="btn cancel no-print" onclick="cancelarTransaccion()">Cancelar Transacción</button>
+    </main>
   </div>
 
   <script>
-    // Mostrar total y reflejar en campo de pago
     document.addEventListener('DOMContentLoaded', () => {
-      const total = localStorage.getItem('totalPagar');
-      if (total) {
-        const totalFormatted = `Q ${parseFloat(total).toFixed(2)}`;
-        document.getElementById('total-amount').innerText = totalFormatted;
-        document.getElementById('payment').value = totalFormatted;
-      }
-    });
+  const invoiceOriginal = JSON.parse(localStorage.getItem('invoice') || '[]');
+  const body = document.getElementById('invoice-detail-body');
 
-    // Cancelar
-    function cancelarTransaccion() {
-      Swal.fire({
-        title: '¿Está seguro de cancelar la transacción?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Aceptar',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: 'Transacción cancelada con éxito',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-          }).then(() => {
-            window.location.href = 'Pedidos.html';
-          });
-        }
-      });
+  // Agrupar productos por nombre (ignorando tipo y toppings)
+  const agrupados = invoiceOriginal.reduce((acc, item) => {
+    const key = item.name;
+    const existente = acc.find(p => p.name === key);
+    if (existente) {
+      existente.qty += item.qty;
+    } else {
+      acc.push({ name: item.name, price: item.price, qty: item.qty });
     }
+    return acc;
+  }, []);
+
+  agrupados.forEach(item => {
+    const sub = item.qty * item.price;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${item.qty}</td>
+      <td>${item.name}</td>
+      <td>Q${item.price.toFixed(2)}</td>
+      <td>Q${sub.toFixed(2)}</td>
+    `;
+    body.appendChild(tr);
+  });
+
+  const total = localStorage.getItem('totalPagar');
+  if (total) {
+    const formatted = `Q ${parseFloat(total).toFixed(2)}`;
+    document.getElementById('total-amount').innerText = formatted;
+    document.getElementById('payment').value = formatted;
+  }
+});
+
+   function printComanda() {
+  const totalText = document.getElementById('total-amount')
+    .innerText.replace('Q', '').trim();
+  const total = parseFloat(totalText) || 0;
+  const orderName = document.getElementById('order-name').value.trim();
+
+  if (total <= 0) {
+    Swal.fire('Error', 'No hay ningún artículo para facturar.', 'error');
+    return;
+  }
+
+  if (!orderName) {
+    Swal.fire('Error', 'Por favor ingrese el nombre de la orden.', 'error');
+    return;
+  }
+
+  // Actualiza el header de impresión
+  document.getElementById('order-name-print').innerText = orderName;
+
+  // Imprime la factura
+  window.print();
+
+  // Espera 1 segundo y limpia la orden
+  setTimeout(() => {
+    ['invoice', 'totalPagar', 'table', 'order'].forEach(k => localStorage.removeItem(k));
+    window.location.href = 'Pedidos.html';
+  }, 1000);
+}
+
+   function cancelarTransaccion() {
+  Swal.fire({
+    title: '¿Está seguro de cancelar la transacción?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Aceptar',
+    cancelButtonText: 'Cancelar',
+  }).then(result => {
+    if (result.isConfirmed) {
+      window.location.href = 'Pedidos.html';
+    }
+  });
+}
+
   </script>
 </body>
 </html>

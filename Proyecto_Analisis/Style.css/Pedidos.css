@@ -237,4 +237,27 @@ html, body {
 .btn--green { background: #28a745; color: #fff; }
 .btn--orange { background: #d35400; color: #fff; }
 .btn:hover { opacity: 0.9; }
+.btn--orange2 { background: #d35400; color: #fff}
+.btn--blue { background: #28a745; color: #fff; }
+
+/* grid de opciones dentro del modal */
+.swal2-container .option-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.swal2-container .option-card {
+  border: 2px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  user-select: none;
+}
+.swal2-container .option-card.selected {
+  border-color: #4CAF50;
+  background: rgba(76,175,80,0.1);
+}
 

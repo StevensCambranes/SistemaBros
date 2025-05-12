@@ -23,9 +23,13 @@
         <label for="table-input">Mesa</label>
         <div class="spinner-control vertical">
           <button class="arrow" id="table-up">▲</button>
-          <input type="number" id="table-input" value="1" min="1" step="1" />
+          <input type="number" id="table-input" value="1" min="0" step="1" />
           <button class="arrow" id="table-down">▼</button>
         </div>
+      </div>
+      <div class="buttons">
+        <button id="take-out-btn" class="btn btn--blue">Para Llevar</button>
+        <button class="btn btn--orange2" onclick="guardarYRegresar()">Regresar</button>
       </div>
     </aside>
 
@@ -35,21 +39,21 @@
       <section class="group">
         <h2>Entradas</h2>
         <div class="items-grid">
-          <div class="product" data-name="Chilaquiles" data-price="30.00">
+          <div class="product no-options" data-name="Chilaquiles" data-price="30.00">
             <img src="Imagenes/Chilaquiles.jpeg" alt="Chilaquiles">
             <div class="prod-info">
               <span class="prod-name">Chilaquiles</span>
               <span class="prod-price">Q30.00</span>
             </div>
           </div>
-          <div class="product" data-name="Los Nachos" data-price="30.00">
+          <div class="product" data-name="Los Nachos" data-price="30.00" data-simple-options>
             <img src="Imagenes/Nachos.jpg" alt="Los Nachos">
             <div class="prod-info">
               <span class="prod-name">Los Nachos</span>
               <span class="prod-price">Q30.00</span>
             </div>
           </div>
-          <div class="product" data-name="Las Papasitas" data-price="30.00">
+          <div class="product no-options" data-name="Las Papasitas" data-price="30.00">
             <img src="Imagenes/Papasitas.jpg" alt="Las Papasitas">
             <div class="prod-info">
               <span class="prod-name">Las Papasitas</span>
@@ -122,61 +126,60 @@
           <div class="product" data-name="Tacos Bros (2 pz)" data-price="20.00">
             <img src="Imagenes/Tacos_Bros.jpg" alt="Tacos Bros (2 pz)">
             <div class="prod-info">
-              <span class="prod-name">Tacos Bros(2pz)</span>
+              <span class="prod-name">Tacos Bros (2pz)</span>
               <span class="prod-price">Q20.00</span>
             </div>
           </div>
         </div>
       </section>
 
-       <!-- BEBIDAS -->
-       <section class="group">
+      <!-- BEBIDAS -->
+      <section class="group">
         <h2>Bebidas</h2>
         <div class="items-grid">
-          <div class="product" data-name="Cantarito" data-price="25.00">
+          <div class="product no-options" data-name="Cantarito" data-price="25.00">
             <img src="Imagenes/Cantarito.jpeg" alt="Cantarito">
             <div class="prod-info">
               <span class="prod-name">Cantarito</span>
               <span class="prod-price">Q25.00</span>
             </div>
           </div>
-          <div class="product" data-name="V8 Preparado" data-price="20.00">
+          <div class="product no-options" data-name="V8 Preparado" data-price="20.00">
             <img src="Imagenes/V8_Preparado.png" alt="V8 Preparado">
             <div class="prod-info">
               <span class="prod-name">V8 Preparado</span>
               <span class="prod-price">Q20.00</span>
             </div>
           </div>
-          <div class="product" data-name="Refresco Natural" data-price="7.00">
+          <div class="product no-options" data-name="Refresco Natural" data-price="7.00">
             <img src="Imagenes/Refresco_Natural.png" alt="Refresco Natural">
             <div class="prod-info">
               <span class="prod-name">Refresco Natural</span>
               <span class="prod-price">Q7.00</span>
             </div>
           </div>
-          <div class="product" data-name="Gaseosa" data-price="7.00">
+          <div class="product no-options" data-name="Gaseosa" data-price="7.00">
             <img src="Imagenes/Gaseosas.png" alt="Gaseosa">
             <div class="prod-info">
               <span class="prod-name">Gaseosa</span>
               <span class="prod-price">Q7.00</span>
             </div>
           </div>
-          <div class="product" data-name="Agua Pura" data-price="5.00">
+          <div class="product no-options" data-name="Agua Pura" data-price="5.00">
             <img src="Imagenes/Agua_Pura.png" alt="Agua Pura">
             <div class="prod-info">
               <span class="prod-name">Agua Pura</span>
               <span class="prod-price">Q5.00</span>
             </div>
           </div>
-          <div class="product" data-name="Litro Coca Cola" data-price="15.00">
+          <div class="product no-options" data-name="Litro Coca Cola" data-price="15.00">
             <img src="Imagenes/Litro_Coca.png" alt="Litro Coca Cola">
             <div class="prod-info">
               <span class="prod-name">Litro Coca Cola</span>
               <span class="prod-price">Q15.00</span>
             </div>
           </div>
-          <div class="product" data-name="Litro Refresco" data-price="20.00">
-            <!-- Corregido: faltaba el atributo alt -->
+          <div class="product no-options" data-name="Litro Refresco" data-price="20.00">
             <img src="Imagenes/Litro_Agua.png" alt="Litro Refresco">
             <div class="prod-info">
               <span class="prod-name">Litro Refresco</span>
@@ -197,7 +200,11 @@
           <table>
             <thead>
               <tr>
-                <th>Cant.</th><th>Producto</th><th>Precio</th><th>Subtotal</th><th>Eliminar</th>
+                <th>Cant.</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+                <th>✖️</th>
               </tr>
             </thead>
             <tbody id="invoice-body"></tbody>
@@ -212,103 +219,327 @@
     </aside>
   </div>
 
-  <script>
-    // SPINNERS
-    function wireSpinner(upId, downId, inputId, max=9999) {
-      const up = document.getElementById(upId),
-            down = document.getElementById(downId),
-            inp = document.getElementById(inputId);
-      up.onclick = () => { if(+inp.value<max) inp.value++; inp.dispatchEvent(new Event('change')); };
-      down.onclick = () => { if(+inp.value>+inp.min) inp.value--; inp.dispatchEvent(new Event('change')); };
-      inp.onchange = () => {
-        let v=+inp.value;
-        if(isNaN(v)||v<+inp.min) v=+inp.min;
-        if(v>max) v=max;
-        inp.value=v;
-        if(inputId==='table-input')
-          document.getElementById('res-table').value=v;
-      };
+<script>
+  // ————— Inyectar estilos para que “Temporada” no se parta —————
+  const style = document.createElement('style');
+  style.textContent = `
+    .swal2-container .option-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+      gap: 0.5rem;
+      margin-top: 1rem;
     }
-    wireSpinner('qty-up','qty-down','qty-input',1000);
-    wireSpinner('table-up','table-down','table-input',100);
+    .swal2-container .option-card {
+      border: 2px solid #ccc;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      user-select: none;
+      white-space: nowrap !important;
+    }
+    .swal2-container .option-card.selected {
+      border-color: #4CAF50;
+      background: rgba(76,175,80,0.1);
+    }
+  `;
+  document.head.appendChild(style);
 
-    // FACTURA
-    let invoice = [];
-    const tbody = document.getElementById('invoice-body'),
-          totalEl = document.getElementById('res-total');
+  // ————— SPINNERS —————
+  function wireSpinner(upId, downId, inputId, max = 9999) {
+    const up  = document.getElementById(upId),
+          down = document.getElementById(downId),
+          inp  = document.getElementById(inputId);
+    up.onclick   = () => { if (+inp.value < max) inp.value++; inp.dispatchEvent(new Event('change')); };
+    down.onclick = () => { if (+inp.value > +inp.min) inp.value--; inp.dispatchEvent(new Event('change')); };
+    inp.onchange = () => {
+      let v = +inp.value;
+      if (isNaN(v) || v < +inp.min) v = +inp.min;
+      if (v > max)           v = max;
+      inp.value = v;
+      if (inputId === 'table-input')
+        document.getElementById('res-table').value = v;
+    };
+  }
+  wireSpinner('qty-up','qty-down','qty-input',100);
+  wireSpinner('table-up','table-down','table-input',7);
 
-    function renderInvoice() {
-      tbody.innerHTML = '';
-      let sum = 0;
-      invoice.forEach((item, i) => {
-        const sub = item.qty * item.price;
-        sum += sub;
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${item.qty}</td>
-          <td>${item.name}</td>
-          <td>Q${item.price.toFixed(2)}</td>
-          <td>Q${sub.toFixed(2)}</td>
-          <td><button class="remove-btn" data-index="${i}">&times;</button></td>
-        `;
-        tbody.appendChild(tr);
-      });
-      totalEl.innerText = sum.toFixed(2);
-      document.querySelectorAll('.remove-btn').forEach(btn =>
-        btn.onclick = () => {
-          invoice.splice(+btn.dataset.index, 1);
-          renderInvoice();
+  // ————— ESTADO Y REFERENCIAS —————
+  let invoice = [];
+  const tbody    = document.getElementById('invoice-body'),
+        totalEl  = document.getElementById('res-total'),
+        tableIn  = document.getElementById('table-input'),
+        resTable = document.getElementById('res-table');
+
+  // ————— RENDERIZAR FACTURA —————
+  function renderInvoice() {
+    tbody.innerHTML = '';
+    let sum = 0;
+
+    invoice.forEach((item, i) => {
+      const sub = item.qty * item.price;
+      sum += sub;
+
+      const detail = [];
+      if (item.type) detail.push(item.type);
+      if (item.toppings.length) {
+        if (item.toppings[0] === 'Con todo') detail.push('Con todo');
+        else detail.push(...item.toppings);
+      }
+      const info = detail.length
+        ? `<small>${detail.join(' – ')}</small>`
+        : '';
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${item.qty}</td>
+        <td>${item.name}${info ? '<br>'+info : ''}</td>
+        <td>Q${item.price.toFixed(2)}</td>
+        <td>Q${sub.toFixed(2)}</td>
+        <td><button class="remove-btn" data-index="${i}">&times;</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    totalEl.innerText = sum.toFixed(2);
+
+    document.querySelectorAll('.remove-btn').forEach(btn =>
+      btn.onclick = () => {
+        invoice.splice(+btn.dataset.index, 1);
+        if (!invoice.length) {
+          localStorage.removeItem('invoice');
+          localStorage.removeItem('totalPagar');
         }
-      );
+        renderInvoice();
+      }
+    );
+  }
+
+  // ————— HELPERS DE MODAL —————
+  function showOptionGrid(title, options) {
+    return Swal.fire({
+      title,
+      html: `<div class="option-grid">
+        ${options.map(o =>
+          `<div class="option-card" data-value="${o.value}">${o.label}</div>`
+        ).join('')}
+      </div>`,
+      showConfirmButton: true,
+      confirmButtonText: 'Siguiente',
+      focusConfirm: false,
+      allowOutsideClick: true,
+      didOpen: () => {
+        const cards = Swal.getHtmlContainer().querySelectorAll('.option-card');
+        cards.forEach(c =>
+          c.onclick = () => {
+            cards.forEach(x => x.classList.remove('selected'));
+            c.classList.add('selected');
+            Swal.getPopup().dataset.selected = c.dataset.value;
+          }
+        );
+      },
+      preConfirm: () => {
+        const sel = Swal.getPopup().dataset.selected;
+        if (!sel) Swal.showValidationMessage('Selecciona una opción');
+        return sel;
+      }
+    }).then(res => res.isConfirmed ? res.value : null);
+  }
+
+  function showMultiOptionGrid(title, options) {
+    return Swal.fire({
+      title,
+      html: `<div class="option-grid">
+        ${options.map(o =>
+          `<div class="option-card" data-value="${o.value}">${o.label}</div>`
+        ).join('')}
+      </div>`,
+      showConfirmButton: true,
+      confirmButtonText: 'Agregar',
+      focusConfirm: false,
+      allowOutsideClick: true,
+      didOpen: () => {
+        const cards = Swal.getHtmlContainer().querySelectorAll('.option-card');
+        cards.forEach(c =>
+          c.onclick = () => {
+            const val = c.dataset.value;
+            if (val === 'Con todo') {
+              const selectAll = !c.classList.contains('selected');
+              cards.forEach(x => {
+                x.classList.toggle('selected', x===c && selectAll);
+                x.style.pointerEvents = selectAll && x!==c ? 'none' : '';
+                x.style.opacity       = selectAll && x!==c ? '0.5' : '';
+              });
+            } else {
+              const todo = [...cards].find(x=>x.dataset.value==='Con todo');
+              if (todo && todo.classList.contains('selected')) return;
+              c.classList.toggle('selected');
+            }
+          }
+        );
+      },
+      preConfirm: () => {
+        const sel = [...Swal.getHtmlContainer()
+          .querySelectorAll('.option-card.selected')]
+          .map(x => x.dataset.value);
+        if (!sel.length) Swal.showValidationMessage('Selecciona al menos una opción');
+        return sel.includes('Con todo') ? ['Con todo'] : sel;
+      }
+    }).then(res => res.isConfirmed ? res.value : null);
+  }
+
+  // ————— AGREGAR PRODUCTOS —————
+  async function addToInvoiceWithModal(c) {
+    const name  = c.dataset.name,
+          price = parseFloat(c.dataset.price),
+          qty   = +document.getElementById('qty-input').value;
+
+    const tipo = await showOptionGrid('Elige un tipo', [
+      { value: 'Birria',    label: 'Birria' },
+      { value: 'Cochito',   label: 'Cochito' },
+      { value: 'Mixta',     label: 'Mixta' },
+      { value: 'Temporada', label: 'Temporada' }
+    ]);
+    if (!tipo) return;
+
+    const toppings = await showMultiOptionGrid('Selecciona toppings', [
+      { value: 'Con todo',    label: 'Con todo' },
+      { value: 'Sin cebolla', label: 'Sin cebolla' },
+      { value: 'Sin repollo', label: 'Sin repollo' },
+      { value: 'Extra queso', label: 'Extra queso' }
+    ]);
+    if (!toppings) return;
+
+    invoice.push({ name, price, qty, type: tipo, toppings });
+    renderInvoice();
+  }
+
+  async function addToInvoiceSimpleOptions(c) {
+    const name  = c.dataset.name,
+          price = parseFloat(c.dataset.price),
+          qty   = +document.getElementById('qty-input').value;
+
+    const type = await showOptionGrid(name, [
+      { value: 'Normal',     label: 'Normal' },
+      { value: 'Extra Queso',label: 'Extra Queso' }
+    ]);
+    if (type===null) return;
+
+    invoice.push({ name, price, qty, type, toppings: [] });
+    renderInvoice();
+  }
+
+  function addToInvoiceSimple(name, price) {
+    const qty = +document.getElementById('qty-input').value;
+    const existing = invoice.find(x =>
+      x.name===name && !x.type && (!x.toppings||!x.toppings.length)
+    );
+    if (existing) existing.qty += qty;
+    else invoice.push({ name, price, qty, type:null, toppings:[] });
+    renderInvoice();
+  }
+
+  document.querySelectorAll('.product').forEach(c =>
+    c.onclick = () => {
+      if (c.dataset.simpleOptions!==undefined) {
+        addToInvoiceSimpleOptions(c);
+      } else if (c.classList.contains('no-options')) {
+        addToInvoiceSimple(c.dataset.name, parseFloat(c.dataset.price));
+      } else {
+        addToInvoiceWithModal(c);
+      }
+    }
+  );
+
+  // ————— BOTONES —————
+  document.getElementById('take-out-btn').onclick = () => {
+    tableIn.value = 0;
+    resTable.value = 0;
+  };
+
+  function guardarYRegresar() {
+    if (invoice.length) {
+      localStorage.setItem('invoice', JSON.stringify(invoice));
+      localStorage.setItem('totalPagar', totalEl.innerText);
+    } else {
+      localStorage.removeItem('invoice');
+      localStorage.removeItem('totalPagar');
+    }
+    localStorage.setItem('table', tableIn.value);
+    localStorage.setItem('order', document.getElementById('order-input').value);
+    window.location.href = 'Menu_Principal.html';
+  }
+
+  // ————— COBRAR —————
+  document.querySelector('.btn--green').onclick = () => {
+    if (!invoice.length) {
+      return Swal.fire('Factura vacía','Agrega un producto.','error');
+    }
+    const orderNum = document.getElementById('order-input').value;
+    if (!orderNum) {
+      return Swal.fire('Orden faltante','Ingresa número de orden.','error');
     }
 
-    function addToInvoice(name, price) {
-      const qty = +document.getElementById('qty-input').value;
-      const found = invoice.find(x => x.name === name);
-      if (found) found.qty += qty;
-      else invoice.push({ name, price, qty });
+    const grouped = invoice.reduce((acc, item) => {
+      const key = JSON.stringify([item.name]);
+      let e = acc.find(x => x.key===key);
+      if (e) e.qty += item.qty;
+      else acc.push({ ...item, key });
+      return acc;
+    }, []).map(x => ({
+      name: x.name,
+      price: x.price,
+      qty:   x.qty,
+      type:  x.type,
+      toppings: x.toppings
+    }));
+
+    localStorage.setItem('invoice', JSON.stringify(grouped));
+    localStorage.setItem('table', tableIn.value);
+    localStorage.setItem('order', orderNum);
+    localStorage.setItem('totalPagar', totalEl.innerText);
+    window.location.href = 'Metodo_de_Pago.html';
+  };
+
+  // ————— CANCELAR PEDIDO —————
+  document.querySelector('.btn--orange').onclick = () => {
+    Swal.fire({
+      icon: 'warning',
+      title: '¿Cancelar orden?',
+      text: 'Si cancelas, se borrará toda la factura.',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, cancelar',
+      cancelButtonText: 'Regresar',
+      reverseButtons: true
+    }).then(res => {
+      if (res.isConfirmed) {
+        invoice = [];
+        localStorage.clear();
+        renderInvoice();
+      }
+    });
+  };
+
+  // ————— CARGAR AL INICIAR —————
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedInv   = localStorage.getItem('invoice'),
+          savedTable = localStorage.getItem('table'),
+          savedOrder = localStorage.getItem('order');
+
+    if (savedInv) {
+      invoice = JSON.parse(savedInv);
       renderInvoice();
     }
-    document.querySelectorAll('.product').forEach(c =>
-      c.onclick = () => addToInvoice(c.dataset.name, parseFloat(c.dataset.price))
-    );
+    if (savedTable !== null) {
+      tableIn.value = savedTable;
+      resTable.value = savedTable;
+    }
+    if (savedOrder) {
+      document.getElementById('order-input').value = savedOrder;
+    }
+  });
+</script>
 
-    // COBRAR
-document.querySelector('.btn--green').onclick = () => {
-  if (invoice.length === 0) {
-    Swal.fire('Factura vacía','Agrega un producto.','error');
-    return;
-  }
-  const orderNum = document.getElementById('order-input').value;
-  if (!orderNum) {
-    Swal.fire('Orden faltante','Ingresa número de orden.','error');
-    return;
-  }
-
-  // Guardamos en localStorage
-  localStorage.setItem('invoice', JSON.stringify(invoice));
-  localStorage.setItem('table', document.getElementById('table-input').value);
-  localStorage.setItem('order', orderNum);
-  const total = document.getElementById('res-total').innerText;
-  localStorage.setItem('totalPagar', total);
-
-  // Redirigir a pago
-  window.location.href = 'Eleccion_carne.html';
-};
-
-    // CANCELAR
-    document.querySelector('.btn--orange').onclick = () => {
-      Swal.fire({
-        icon:'warning',
-        title:'Transacción cancelada',
-        text:'La operación ha sido cancelada.'
-      }).then(r => {
-        if (r.isConfirmed) {
-          invoice = [];
-          renderInvoice();
-        }
-      });
-    };
-  </script>
 </body>
 </html>

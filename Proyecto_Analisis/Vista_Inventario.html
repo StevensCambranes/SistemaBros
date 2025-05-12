@@ -34,7 +34,7 @@
     <div class="buttons">
       <button id="btnAgregar" class="btn btn-blue">Agregar</button>
       <button id="btnVenta" class="btn btn-green">Venta</button>
-      <button id="btnMerma" class="btn btn-orange">Merma</button>
+      <button id="btnMerma" class="btn btn-orange">Desperdicio</button>
     </div>
   </main>
 
@@ -144,9 +144,12 @@
           title: 'Editar medida',
           input: 'select',
           inputOptions: {
-            'unidad': 'Unidad',
-            'kg': 'Kilogramo',
-            'litro': 'Litro'
+            'Unidad': 'Unidad',
+            'Gr': 'Gramo',
+            'Kg': 'Kilogramo',
+            'Oz': 'Onza',
+            'Lb': 'Libra',
+            'Lt': 'Litro'
           },
           inputValue: item.medida,
           showCancelButton: true,

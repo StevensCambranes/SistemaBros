@@ -39,6 +39,31 @@
     document
       .getElementById('back-btn')
       .addEventListener('click', () => window.location.href = 'Pedidos.html');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1) Datos
+      const invoice = JSON.parse(localStorage.getItem('invoice') || '[]');
+      const table   = localStorage.getItem('table')   || '1';
+      const order   = localStorage.getItem('order')   || '';
+
+      // 2) Rellenar inputs (readonly)
+      document.getElementById('mesa-input').value  = table;
+      document.getElementById('orden-input').value = order;
+
+
+      // 9) Cancelar
+      document.querySelector('.btn--orange').onclick = () => {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Transacción cancelada',
+        text: 'La operación ha sido cancelada.'
+      }).then(r => {
+        if (r.isConfirmed) {
+          window.location.href = 'Pedidos.html';
+        }
+      });
+    };
+  }); 
   </script>
 
 </body>
